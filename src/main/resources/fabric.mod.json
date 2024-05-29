@@ -1,41 +1,41 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "variousstatuseffects",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Various Status Effects",
+	"description": "A library of status effects, intended to be used by other mods.",
 	"authors": [
-		"Me!"
+		"TheRedBrain"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/TheRedBrain/various-status-effects"
 	},
-	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"license": "MIT",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+			"com.github.theredbrain.variousstatuseffects.VariousStatusEffects"
 		],
 		"client": [
-			"com.example.ExampleModClient"
+			"com.github.theredbrain.variousstatuseffects.VariousStatusEffectsClient"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
+		"variousstatuseffects.mixins.json",
 		{
-			"config": "modid.client.mixins.json",
+			"config": "variousstatuseffects.client.mixins.json",
 			"environment": "client"
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.15.10",
-		"minecraft": "~1.20.6",
-		"java": ">=21",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
+		"fabricloader": ">=0.14.20",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*",
+		"spell_engine": ">=0.14.3",
+		"healthregenerationoverhaul": ">=1.0.0",
+		"manaattributes": ">=1.2.0",
+		"overhauleddamage": ">=1.2.0",
+		"staminaattributes": ">=1.2.1"
 	}
 }
