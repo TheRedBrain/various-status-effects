@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,6 +46,15 @@ public abstract class LivingEntityMixin extends Entity implements DuckLivingEnti
     @Override
     public boolean doesRenderOnFire() {
         return super.doesRenderOnFire() || (this.hasStatusEffect(VariousStatusEffects.BURNING) && !this.isSpectator());
+    }
+
+    @Override
+    public void updateSwimming() {
+        if (this.isSwimming()) {
+            this.setSwimming(!this.hasStatusEffect(VariousStatusEffects.OVERBURDENED) && this.isSprinting() && this.isTouchingWater() && !this.hasVehicle());
+        } else {
+            this.setSwimming(!this.hasStatusEffect(VariousStatusEffects.OVERBURDENED) && this.isSprinting() && this.isSubmergedInWater() && !this.hasVehicle() && this.getWorld().getFluidState(this.getBlockPos()).isIn(FluidTags.WATER));
+        }
     }
 
     @Inject(method = "tick", at = @At("TAIL"))

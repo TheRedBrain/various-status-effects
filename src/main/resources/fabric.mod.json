@@ -11,6 +11,7 @@
 		"sources": "https://github.com/TheRedBrain/various-status-effects"
 	},
 	"license": "MIT",
+	"icon": "assets/variousstatuseffects/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
