@@ -30,7 +30,7 @@ repositories {
         url = "https://maven.terraformersmc.com/"
     }
 
-    // Spell Power, Spell Engine, Mana Attributes, Stamina Attributes, Overhauled Damage, Health Regeneration Overhaul
+    // Spell Power, Spell Engine, Mana Attributes, Stamina Attributes, Overhauled Damage, Health Regeneration Overhaul, Combat Roll Extension, Resource Bar API
     maven {
         name = "Modrinth"
         url = "https://api.modrinth.com/maven"
@@ -103,6 +103,9 @@ dependencies {
     // Resource Bar API
     modImplementation "maven.modrinth:resource-bar-api:${project.resource_bar_api_version}"
 
+    // Combat Roll Extension
+    modImplementation "maven.modrinth:combat-roll-extension:${project.combat_roll_extension_version}"
+
 }
 
 processResources {
@@ -164,6 +167,7 @@ if (project.hasProperty('release_type')) {
                 requiredDependency 'overhauled-damage'
                 requiredDependency 'health-regeneration-overhaul'
                 requiredDependency 'spell-engine'
+                requiredDependency 'combat-roll-extension'
             }
 
             mainArtifact(remapJar)
@@ -199,6 +203,7 @@ if (project.hasProperty('release_type')) {
             required.project 'overhauled-damage'
             required.project 'health-regeneration-overhaul'
             required.project 'spell-engine'
+            required.project 'combat-roll-extension'
         }
     }
 

@@ -1,5 +1,6 @@
 package com.github.theredbrain.variousstatuseffects.registry;
 
+import com.github.theredbrain.combatrollextension.CombatRollExtension;
 import com.github.theredbrain.healthregenerationoverhaul.HealthRegenerationOverhaul;
 import com.github.theredbrain.manaattributes.ManaAttributes;
 import com.github.theredbrain.staminaattributes.StaminaAttributes;
@@ -21,6 +22,9 @@ public class StatusEffectsRegistry {
     private static final String HEALTH_REGENERATION_AURA_EFFECT_MODIFIER_UUID = "07b833f2-3160-41a2-8632-e4df6203ff8d";
     private static final String MANA_REGENERATION_EFFECT_MODIFIER_UUID = "dba456b2-a30a-45a4-b7dc-4166e2798ca5";
     private static final String OVERBURDENED_EFFECT_MODIFIER_UUID = "5dfb38b6-c7a1-4e64-8df0-9c9a951367d7";
+    private static final String LIGHT_LOAD_EFFECT_MODIFIER_UUID = "f7744d2e-a275-4f6f-b723-0de447993ca8";
+    private static final String MEDIUM_LOAD_EFFECT_MODIFIER_UUID = "473e8074-041c-4553-851b-29bc8e459cc4";
+    private static final String HEAVY_LOAD_EFFECT_MODIFIER_UUID = "63b79b82-e453-44c9-81f0-d3d75e17a026";
 
     public static void registerEffects() {
         // --- Attribute Modifiers ---
@@ -44,6 +48,15 @@ public class StatusEffectsRegistry {
         ;
         VariousStatusEffects.OVERBURDENED
                 .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, OVERBURDENED_EFFECT_MODIFIER_UUID, -0.25, EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
+        ;
+        VariousStatusEffects.LIGHT_LOAD
+                .addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, LIGHT_LOAD_EFFECT_MODIFIER_UUID, 7.0, EntityAttributeModifier.Operation.ADDITION)
+        ;
+        VariousStatusEffects.MEDIUM_LOAD
+                .addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, MEDIUM_LOAD_EFFECT_MODIFIER_UUID, 6.0, EntityAttributeModifier.Operation.ADDITION)
+        ;
+        VariousStatusEffects.HEAVY_LOAD
+                .addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, HEAVY_LOAD_EFFECT_MODIFIER_UUID, 5.0, EntityAttributeModifier.Operation.ADDITION)
         ;
 
         // --- Configuration ---
@@ -80,5 +93,8 @@ public class StatusEffectsRegistry {
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("staggered"), VariousStatusEffects.STAGGERED);
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("wet"), VariousStatusEffects.WET);
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("wilderness"), VariousStatusEffects.WILDERNESS);
+        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("light_load"), VariousStatusEffects.LIGHT_LOAD);
+        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("medium_load"), VariousStatusEffects.MEDIUM_LOAD);
+        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("heavy_load"), VariousStatusEffects.HEAVY_LOAD);
     }
 }

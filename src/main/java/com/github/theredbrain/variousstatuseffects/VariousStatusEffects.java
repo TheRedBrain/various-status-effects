@@ -27,6 +27,9 @@ public class VariousStatusEffects implements ModInitializer {
 	public static final StatusEffect NEEDS_TWO_HANDING = new NeutralStatusEffect();
 	public static final StatusEffect NO_ATTACK_ITEM = new NeutralStatusEffect();
 	public static final StatusEffect OVERBURDENED = new HarmfulStatusEffect();
+	public static final StatusEffect LIGHT_LOAD = new HarmfulStatusEffect();
+	public static final StatusEffect MEDIUM_LOAD = new HarmfulStatusEffect();
+	public static final StatusEffect HEAVY_LOAD = new HarmfulStatusEffect();
 	public static final StatusEffect POISON = new CustomPoisonStatusEffect();
 	public static final StatusEffect SHOCKED = new ShockedStatusEffect();
 	public static final StatusEffect STAGGERED = new HarmfulStatusEffect();
