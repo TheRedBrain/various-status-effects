@@ -19,7 +19,7 @@ public class EntityActionsAllowedSemanticTypeMixin {
 
     // synthetic field, find the name in bytecode
     // if you are using McDev plugin add @SuppressWarnings("ShadowTarget")
-    @Shadow
+    @Shadow(remap = false)
     @Final
     @Mutable
     private static EntityActionsAllowed.SemanticType[] $VALUES;

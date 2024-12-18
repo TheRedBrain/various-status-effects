@@ -106,6 +106,9 @@ dependencies {
     // Resource Bar API
     modImplementation "maven.modrinth:resource-bar-api:${project.resource_bar_api_version}"
 
+    // Combat Roll
+    modImplementation "maven.modrinth:combat-roll:${project.combat_roll_version}"
+
     // Combat Roll Extension
     modImplementation "maven.modrinth:combat-roll-extension:${project.combat_roll_extension_version}"
 

@@ -72,7 +72,7 @@
 	"variousstatuseffects.server.poisonSection": "Poison Settings",
 	"variousstatuseffects.server.poisonSection.tick_update_threshold": "Damage Tick Threshold",
 	"variousstatuseffects.server.poisonSection.amplifier_multiplier": "Poison Damage Multiplier",
-	"variousstatuseffects.server.poisonSection.amplifier_multiplier.desc": "Poison Damage = Poison Effect Level * Poison Damage Multiplier",
+	"variousstatuseffects.server.poisonSection.amplifier_multiplier.desc": "Poison Damage = (Poison Effect Level + 1) * Poison Damage Multiplier",
 	"variousstatuseffects.server.poisonSection.effect_color": "Particle Color",
 
 	"variousstatuseffects.server.shockedInstantSection": "Instant Shocked Settings",
