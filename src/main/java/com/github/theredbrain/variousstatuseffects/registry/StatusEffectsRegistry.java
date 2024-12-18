@@ -3,6 +3,7 @@ package com.github.theredbrain.variousstatuseffects.registry;
 import com.github.theredbrain.combatrollextension.CombatRollExtension;
 import com.github.theredbrain.healthregenerationoverhaul.HealthRegenerationOverhaul;
 import com.github.theredbrain.manaattributes.ManaAttributes;
+import com.github.theredbrain.overhauleddamage.OverhauledDamage;
 import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.variousstatuseffects.VariousStatusEffects;
 import com.github.theredbrain.variousstatuseffects.spell_engine.ExtendedEntityActionsAllowedSemanticType;
@@ -49,6 +50,9 @@ public class StatusEffectsRegistry {
         VariousStatusEffects.OVERBURDENED
                 .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, OVERBURDENED_EFFECT_MODIFIER_UUID, -0.25, EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
         ;
+//        VariousStatusEffects.SHOCKED_DAMAGE_INCREASE
+//                .addAttributeModifier(OverhauledDamage.DAMAGE_TAKEN_MULTIPLIER, SHOCKED_DAMAGE_INCREASE_EFFECT_MODIFIER_UUID, 0.25, EntityAttributeModifier.Operation.ADDITION)
+//        ;
         VariousStatusEffects.LIGHT_LOAD
                 .addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, LIGHT_LOAD_EFFECT_MODIFIER_UUID, 7.0, EntityAttributeModifier.Operation.ADDITION)
         ;
@@ -89,7 +93,8 @@ public class StatusEffectsRegistry {
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("no_attack_item"), VariousStatusEffects.NO_ATTACK_ITEM);
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("overburdened"), VariousStatusEffects.OVERBURDENED);
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("poison"), VariousStatusEffects.POISON);
-        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("shocked"), VariousStatusEffects.SHOCKED);
+        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("shocked_instant"), VariousStatusEffects.SHOCKED_INSTANT);
+        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("shocked_damage_increase"), VariousStatusEffects.SHOCKED_DAMAGE_INCREASE);
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("staggered"), VariousStatusEffects.STAGGERED);
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("wet"), VariousStatusEffects.WET);
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("wilderness"), VariousStatusEffects.WILDERNESS);

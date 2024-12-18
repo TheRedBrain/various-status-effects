@@ -1,5 +1,6 @@
 package com.github.theredbrain.variousstatuseffects.effect;
 
+import com.github.theredbrain.variousstatuseffects.VariousStatusEffects;
 import com.github.theredbrain.variousstatuseffects.entity.damage.DuckDamageSourcesMixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -7,19 +8,19 @@ import net.minecraft.entity.effect.InstantStatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import org.jetbrains.annotations.Nullable;
 
-public class ShockedStatusEffect extends InstantStatusEffect { // TODO play test balance
-    public ShockedStatusEffect() {
-        super(StatusEffectCategory.HARMFUL, 3381504); // TODO better colour
+public class ShockedInstantStatusEffect extends InstantStatusEffect {
+    public ShockedInstantStatusEffect() {
+        super(StatusEffectCategory.HARMFUL, VariousStatusEffects.SERVER_CONFIG.shockedInstantSection.effect_color.toInt());
     }
 
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         super.applyUpdateEffect(entity, amplifier);
-        entity.damage(((DuckDamageSourcesMixin)entity.getDamageSources()).variousstatuseffects$shocked(), 10.0f);
+        entity.damage(((DuckDamageSourcesMixin)entity.getDamageSources()).variousstatuseffects$shocked(), VariousStatusEffects.SERVER_CONFIG.shockedInstantSection.damage.get());
     }
 
     @Override
     public void applyInstantEffect(@Nullable Entity source, @Nullable Entity attacker, LivingEntity target, int amplifier, double proximity) {
-        target.damage(((DuckDamageSourcesMixin)target.getDamageSources()).variousstatuseffects$shocked(), 10.0f);
+        target.damage(((DuckDamageSourcesMixin)target.getDamageSources()).variousstatuseffects$shocked(), VariousStatusEffects.SERVER_CONFIG.shockedInstantSection.damage.get());
     }
 
 }

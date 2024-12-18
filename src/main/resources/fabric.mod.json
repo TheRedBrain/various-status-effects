@@ -29,14 +29,16 @@
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.14.20",
-		"minecraft": "~1.20.1",
-		"java": ">=17",
+		"fabricloader": ">=${loader_version}",
+		"minecraft": "${minecraft_version}",
 		"fabric-api": "*",
-		"spell_engine": ">=0.14.3",
-		"healthregenerationoverhaul": ">=1.0.0",
-		"manaattributes": ">=1.2.0",
-		"overhauleddamage": ">=1.2.0",
-		"staminaattributes": ">=1.2.1"
+		"fzzy_config": ">=${fzzy_config_version}",
+		"spell_engine": ">=${spell_engine_version}",
+		"healthregenerationoverhaul": ">=${health_regeneration_overhaul_version}",
+		"manaattributes": ">=${mana_attributes_version}",
+		"overhauleddamage": ">=${overhauled_damage_version}",
+		"staminaattributes": ">=${stamina_attributes_version}",
+		"resourcebarapi": ">=${resource_bar_api_version}",
+		"combatrollextension": ">=${combat_roll_extension_version}"
 	}
 }

@@ -5,7 +5,11 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 
 public class HarmfulStatusEffect extends StatusEffect {
 
-    public HarmfulStatusEffect() {
-        super(StatusEffectCategory.HARMFUL, 3381504); // TODO better colour
-    }
+	public HarmfulStatusEffect(int color) {
+		super(StatusEffectCategory.HARMFUL, color);
+	}
+
+	public HarmfulStatusEffect() {
+		this(3381504);
+	}
 }

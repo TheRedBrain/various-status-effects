@@ -37,8 +37,10 @@
 	"effect.variousstatuseffects.overburdened.description": "Your equipment is to heavy for you.",
 	"effect.variousstatuseffects.poison": "Poison",
 	"effect.variousstatuseffects.poison.description": "Poisoned",
-	"effect.variousstatuseffects.shocked": "Shocked",
-	"effect.variousstatuseffects.shocked.description": "Shocked",
+	"effect.variousstatuseffects.shocked_instant": "Shocked",
+	"effect.variousstatuseffects.shocked_instant.description": "You take damage",
+	"effect.variousstatuseffects.shocked_damage_increase": "Shocked",
+	"effect.variousstatuseffects.shocked_damage_increase.description": "You take more damage",
 	"effect.variousstatuseffects.staggered": "Staggered",
 	"effect.variousstatuseffects.staggered.description": "Staggered",
 	"effect.variousstatuseffects.wet": "Wet",
@@ -50,7 +52,30 @@
 	"hud.action_impaired.frozen": "You are frozen",
 	"hud.action_impaired.needs_two_handing": "You need to 2-hand this item",
 	"hud.action_impaired.no_attack_item": "You can't attack with this item",
-	"hud.action_impaired.staggered": "You are staggered"
+	"hud.action_impaired.staggered": "You are staggered",
 
 
+	"variousstatuseffects.server": "Server Side Settings",
+
+	"variousstatuseffects.server.bleedingSection": "Bleeding Settings",
+	"variousstatuseffects.server.bleedingSection.tick_update_threshold": "Damage Tick Threshold",
+	"variousstatuseffects.server.bleedingSection.moving_doubles_damage": "Moving Doubles Damage",
+	"variousstatuseffects.server.bleedingSection.max_health_multiplier": "Bleeding Damage Multiplier",
+	"variousstatuseffects.server.bleedingSection.max_health_multiplier.desc": "Bleeding Damage = Max Health * Bleeding Damage Multiplier",
+	"variousstatuseffects.server.bleedingSection.effect_color": "Particle Color",
+
+	"variousstatuseffects.server.burningSection": "Burning Settings",
+	"variousstatuseffects.server.burningSection.tick_update_threshold": "Damage Tick Threshold",
+	"variousstatuseffects.server.burningSection.damage_per_tick": "Damage Dealt",
+	"variousstatuseffects.server.burningSection.effect_color": "Particle Color",
+
+	"variousstatuseffects.server.poisonSection": "Poison Settings",
+	"variousstatuseffects.server.poisonSection.tick_update_threshold": "Damage Tick Threshold",
+	"variousstatuseffects.server.poisonSection.amplifier_multiplier": "Poison Damage Multiplier",
+	"variousstatuseffects.server.poisonSection.amplifier_multiplier.desc": "Poison Damage = Poison Effect Level * Poison Damage Multiplier",
+	"variousstatuseffects.server.poisonSection.effect_color": "Particle Color",
+
+	"variousstatuseffects.server.shockedInstantSection": "Instant Shocked Settings",
+	"variousstatuseffects.server.shockedInstantSection.damage": "Damage Dealt",
+	"variousstatuseffects.server.shockedInstantSection.effect_color": "Particle Color"
 }

@@ -5,7 +5,11 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 
 public class BeneficialStatusEffect extends StatusEffect {
 
+    public BeneficialStatusEffect(int color) {
+        super(StatusEffectCategory.BENEFICIAL, color);
+    }
+
     public BeneficialStatusEffect() {
-        super(StatusEffectCategory.BENEFICIAL, 3381504); // TODO better colour
+        this(3381504);
     }
 }
