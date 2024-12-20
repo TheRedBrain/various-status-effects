@@ -112,6 +112,9 @@ dependencies {
     // Combat Roll Extension
     modImplementation "maven.modrinth:combat-roll-extension:${project.combat_roll_extension_version}"
 
+    // Food Overhaul
+    modImplementation "maven.modrinth:food-overhaul:${project.food_overhaul_version}"
+
 }
 
 processResources {
@@ -174,6 +177,7 @@ if (project.hasProperty('release_type')) {
                 optionalDependency 'health-regeneration-overhaul'
                 optionalDependency 'spell-engine'
                 optionalDependency 'combat-roll-extension'
+                optionalDependency 'food-overhaul'
             }
 
             mainArtifact(remapJar)
@@ -210,6 +214,7 @@ if (project.hasProperty('release_type')) {
             optional.project 'health-regeneration-overhaul'
             optional.project 'spell-engine'
             optional.project 'combat-roll-extension'
+            optional.project 'food-overhaul'
         }
     }
 
