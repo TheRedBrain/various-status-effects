@@ -56,51 +56,73 @@ public class StatusEffectsRegistry {
 				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("chilled_effect"), -0.15F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
 				.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, VariousStatusEffects.identifier("chilled_effect"), -0.15F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
 		;
-		CIVILISATION
-				.addAttributeModifier(HealthRegenerationOverhaul.HEALTH_REGENERATION, VariousStatusEffects.identifier("civilisation_effect"), 10.0F, EntityAttributeModifier.Operation.ADD_VALUE)
-				.addAttributeModifier(ManaAttributes.MANA_REGENERATION, VariousStatusEffects.identifier("civilisation_effect"), 10.0F, EntityAttributeModifier.Operation.ADD_VALUE)
-				.addAttributeModifier(StaminaAttributes.STAMINA_REGENERATION, VariousStatusEffects.identifier("civilisation_effect"), 10.0F, EntityAttributeModifier.Operation.ADD_VALUE)
-		;
-		HEALTH_REGENERATION
-				.addAttributeModifier(HealthRegenerationOverhaul.HEALTH_REGENERATION, VariousStatusEffects.identifier("health_regeneration_effect"), 2.0F, EntityAttributeModifier.Operation.ADD_VALUE)
-		;
-		HEALTH_REGENERATION_AURA
-				.addAttributeModifier(ManaAttributes.MAX_MANA, VariousStatusEffects.identifier("health_regeneration_aura_effect"), -0.25F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-		;
-		MANA_REGENERATION
-				.addAttributeModifier(ManaAttributes.MANA_REGENERATION, VariousStatusEffects.identifier("mana_regeneration_effect"), 2.0F, EntityAttributeModifier.Operation.ADD_VALUE)
-		;
+		if (VariousStatusEffects.isHealthRegenerationOverhaulLoaded) {
+			HEALTH_REGENERATION
+					.addAttributeModifier(HealthRegenerationOverhaul.HEALTH_REGENERATION, VariousStatusEffects.identifier("health_regeneration_effect"), 2.0F, EntityAttributeModifier.Operation.ADD_VALUE)
+			;
+			CIVILISATION
+					.addAttributeModifier(HealthRegenerationOverhaul.HEALTH_REGENERATION, VariousStatusEffects.identifier("civilisation_effect"), 10.0F, EntityAttributeModifier.Operation.ADD_VALUE)
+			;
+		}
+		if (VariousStatusEffects.isStaminaAttributesLoaded) {
+			CIVILISATION
+					.addAttributeModifier(StaminaAttributes.STAMINA_REGENERATION, VariousStatusEffects.identifier("civilisation_effect"), 10.0F, EntityAttributeModifier.Operation.ADD_VALUE)
+			;
+		}
+		if (VariousStatusEffects.isManaAttributesLoaded) {
+			CIVILISATION
+					.addAttributeModifier(ManaAttributes.MANA_REGENERATION, VariousStatusEffects.identifier("civilisation_effect"), 10.0F, EntityAttributeModifier.Operation.ADD_VALUE)
+			;
+			HEALTH_REGENERATION_AURA
+					.addAttributeModifier(ManaAttributes.MAX_MANA, VariousStatusEffects.identifier("health_regeneration_aura_effect"), -0.25F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+			;
+			MANA_REGENERATION
+					.addAttributeModifier(ManaAttributes.MANA_REGENERATION, VariousStatusEffects.identifier("mana_regeneration_effect"), 2.0F, EntityAttributeModifier.Operation.ADD_VALUE)
+			;
+		}
 		OVERBURDENED
 				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("overburdened_effect"), -0.25, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
 		;
+//		if (VariousStatusEffects.isOverhauledDamageLoaded) {
 //        SHOCKED_DAMAGE_INCREASE
 //                .addAttributeModifier(OverhauledDamage.DAMAGE_TAKEN_MULTIPLIER, VariousStatusEffects.identifier("shocked_damage_increase_effect"), 0.25, EntityAttributeModifier.Operation.ADD_VALUE)
 //        ;
-		LIGHT_LOAD
-				.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("light_load_effect"), 7.0, EntityAttributeModifier.Operation.ADD_VALUE)
-		;
-		MEDIUM_LOAD
-				.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("medium_load_effect"), 6.0, EntityAttributeModifier.Operation.ADD_VALUE)
-		;
+//		}
+		if (VariousStatusEffects.isCombatRollExtensionLoaded) {
+			LIGHT_LOAD
+					.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("light_load_effect"), 7.0, EntityAttributeModifier.Operation.ADD_VALUE)
+			;
+			MEDIUM_LOAD
+					.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("medium_load_effect"), 6.0, EntityAttributeModifier.Operation.ADD_VALUE)
+			;
+			HEAVY_LOAD
+					.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("heavy_load_effect"), 5.0, EntityAttributeModifier.Operation.ADD_VALUE)
+			;
+		}
+		if (VariousStatusEffects.isCombatRollLoaded) {
+			HEAVY_LOAD
+					.addAttributeModifier(CombatRoll.Attributes.DISTANCE.entry, VariousStatusEffects.identifier("heavy_load_effect"), -1.0, EntityAttributeModifier.Operation.ADD_VALUE)
+			;
+		}
 		HEAVY_LOAD
-				.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("heavy_load_effect"), 5.0, EntityAttributeModifier.Operation.ADD_VALUE)
-				.addAttributeModifier(CombatRoll.Attributes.DISTANCE.entry, VariousStatusEffects.identifier("heavy_load_effect"), -1.0, EntityAttributeModifier.Operation.ADD_VALUE)
 				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("heavy_load_effect"), -0.1, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
 		;
 
 		// --- Configuration ---
-		ActionImpairing.configure(NO_ATTACK_ITEM, new EntityActionsAllowed(true, true, new EntityActionsAllowed.PlayersAllowed(false, true, true), new EntityActionsAllowed.MobsAllowed(true), ExtendedEntityActionsAllowedSemanticType.NO_ATTACK_ITEM));
-		ActionImpairing.configure(NEEDS_TWO_HANDING, new EntityActionsAllowed(true, true, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(true), ExtendedEntityActionsAllowedSemanticType.NEEDS_TWO_HANDING));
-		ActionImpairing.configure(STAGGERED, new EntityActionsAllowed(false, false, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), ExtendedEntityActionsAllowedSemanticType.STAGGERED));
-		ActionImpairing.configure(OVERBURDENED, new EntityActionsAllowed(false, true, new EntityActionsAllowed.PlayersAllowed(true, true, true), new EntityActionsAllowed.MobsAllowed(true), EntityActionsAllowed.SemanticType.NONE));
-		ActionImpairing.configure(FROZEN, new EntityActionsAllowed(false, false, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), ExtendedEntityActionsAllowedSemanticType.FROZEN));
+		if (VariousStatusEffects.isSpellEngineLoaded) {
+			ActionImpairing.configure(NO_ATTACK_ITEM, new EntityActionsAllowed(true, true, new EntityActionsAllowed.PlayersAllowed(false, true, true), new EntityActionsAllowed.MobsAllowed(true), ExtendedEntityActionsAllowedSemanticType.NO_ATTACK_ITEM));
+			ActionImpairing.configure(NEEDS_TWO_HANDING, new EntityActionsAllowed(true, true, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(true), ExtendedEntityActionsAllowedSemanticType.NEEDS_TWO_HANDING));
+			ActionImpairing.configure(STAGGERED, new EntityActionsAllowed(false, false, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), ExtendedEntityActionsAllowedSemanticType.STAGGERED));
+			ActionImpairing.configure(OVERBURDENED, new EntityActionsAllowed(false, true, new EntityActionsAllowed.PlayersAllowed(true, true, true), new EntityActionsAllowed.MobsAllowed(true), EntityActionsAllowed.SemanticType.NONE));
+			ActionImpairing.configure(FROZEN, new EntityActionsAllowed(false, false, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), ExtendedEntityActionsAllowedSemanticType.FROZEN));
 
-		Synchronized.configure(BURNING, true);
-		Synchronized.configure(CHILLED, true);
-		Synchronized.configure(FROZEN, true);
-		Synchronized.configure(HEALTH_REGENERATION_AURA, true);
-		Synchronized.configure(STAGGERED, true);
-		Synchronized.configure(WET, true);
+			Synchronized.configure(BURNING, true);
+			Synchronized.configure(CHILLED, true);
+			Synchronized.configure(FROZEN, true);
+			Synchronized.configure(HEALTH_REGENERATION_AURA, true);
+			Synchronized.configure(STAGGERED, true);
+			Synchronized.configure(WET, true);
+		}
 
 		// --- Registration ---
 		VariousStatusEffects.BLEEDING = Registry.registerReference(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("bleeding"), BLEEDING);

@@ -168,12 +168,12 @@ if (project.hasProperty('release_type')) {
             relations {
                 requiredDependency 'fzzy-config'
                 requiredDependency 'fabric-api'
-                requiredDependency 'stamina-attributes'
-                requiredDependency 'mana-attributes'
-                requiredDependency 'overhauled-damage'
-                requiredDependency 'health-regeneration-overhaul'
-                requiredDependency 'spell-engine'
-                requiredDependency 'combat-roll-extension'
+                optionalDependency 'stamina-attributes'
+                optionalDependency 'mana-attributes'
+                optionalDependency 'overhauled-damage'
+                optionalDependency 'health-regeneration-overhaul'
+                optionalDependency 'spell-engine'
+                optionalDependency 'combat-roll-extension'
             }
 
             mainArtifact(remapJar)
@@ -204,12 +204,12 @@ if (project.hasProperty('release_type')) {
             // The type can either be `project` or `version`
             required.project 'fzzy-config'
             required.project 'fabric-api'
-            required.project 'stamina-attributes'
-            required.project 'mana-attributes'
-            required.project 'overhauled-damage'
-            required.project 'health-regeneration-overhaul'
-            required.project 'spell-engine'
-            required.project 'combat-roll-extension'
+            optional.project 'stamina-attributes'
+            optional.project 'mana-attributes'
+            optional.project 'overhauled-damage'
+            optional.project 'health-regeneration-overhaul'
+            optional.project 'spell-engine'
+            optional.project 'combat-roll-extension'
         }
     }
 

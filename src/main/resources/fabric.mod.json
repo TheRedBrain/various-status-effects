@@ -45,6 +45,8 @@
 		"manaattributes": "*",
 		"overhauleddamage": "*",
 		"staminaattributes": "*",
-		"combatrollextension": "*"
+		"combat_roll": "*",
+		"combatrollextension": "*",
+		"foodoverhaul": "*"
 	}
 }
