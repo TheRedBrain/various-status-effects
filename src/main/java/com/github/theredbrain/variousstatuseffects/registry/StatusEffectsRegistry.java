@@ -25,30 +25,30 @@ import net.spell_engine.api.effect.EntityActionsAllowed;
 import net.spell_engine.api.effect.Synchronized;
 
 public class StatusEffectsRegistry {
-	public static final StatusEffect BLEEDING = new BleedingStatusEffect();
-	public static final StatusEffect BURNING = new BurningStatusEffect();
-	public static final StatusEffect CALAMITY = new NeutralStatusEffect();
+	private static final StatusEffect BLEEDING = new BleedingStatusEffect();
+	private static final StatusEffect BURNING = new BurningStatusEffect();
+	private static final StatusEffect CALAMITY = new NeutralStatusEffect();
 	private static final StatusEffect CHILLED = new HarmfulStatusEffect();
-	public static final StatusEffect CIVILISATION = new BeneficialStatusEffect();
-	public static final StatusEffect FALL_IMMUNE = new BeneficialStatusEffect();
-	public static final StatusEffect FROZEN = new HarmfulStatusEffect();
-	public static final StatusEffect HEALTH_REGENERATION = new BeneficialStatusEffect();
-	public static final StatusEffect HEALTH_REGENERATION_AURA = new AuraStatusEffect(true, true, VariousStatusEffects.HEALTH_REGENERATION, 100, 0, true, false, true);
-	public static final StatusEffect KEEP_INVENTORY = new BeneficialStatusEffect();
-	public static final StatusEffect LAVA_IMMUNE = new BeneficialStatusEffect();
-	public static final StatusEffect MANA_REGENERATION = new BeneficialStatusEffect();
-	public static final StatusEffect NEEDS_TWO_HANDING = new NeutralStatusEffect();
-	public static final StatusEffect NO_ATTACK_ITEM = new NeutralStatusEffect();
-	public static final StatusEffect OVERBURDENED = new HarmfulStatusEffect();
-	public static final StatusEffect LIGHT_LOAD = new HarmfulStatusEffect();
-	public static final StatusEffect MEDIUM_LOAD = new HarmfulStatusEffect();
-	public static final StatusEffect HEAVY_LOAD = new HarmfulStatusEffect();
-	public static final StatusEffect POISON = new CustomPoisonStatusEffect();
-	public static final StatusEffect SHOCKED_INSTANT = new ShockedInstantStatusEffect();
-	public static final StatusEffect SHOCKED_DAMAGE_INCREASE = new HarmfulStatusEffect();
-	public static final StatusEffect STAGGERED = new HarmfulStatusEffect();
-	public static final StatusEffect WET = new HarmfulStatusEffect();
-	public static final StatusEffect WILDERNESS = new HarmfulStatusEffect();
+	private static final StatusEffect CIVILISATION = new BeneficialStatusEffect();
+	private static final StatusEffect FALL_IMMUNE = new BeneficialStatusEffect();
+	private static final StatusEffect FROZEN = new HarmfulStatusEffect();
+	private static final StatusEffect HEALTH_REGENERATION = new BeneficialStatusEffect();
+	private static final StatusEffect HEALTH_REGENERATION_AURA = new AuraStatusEffect(true, true, VariousStatusEffects.HEALTH_REGENERATION, 100, 0, true, false, true);
+	private static final StatusEffect KEEP_INVENTORY = new BeneficialStatusEffect();
+	private static final StatusEffect LAVA_IMMUNE = new BeneficialStatusEffect();
+	private static final StatusEffect MANA_REGENERATION = new BeneficialStatusEffect();
+	private static final StatusEffect NEEDS_TWO_HANDING = new NeutralStatusEffect();
+	private static final StatusEffect NO_ATTACK_ITEM = new NeutralStatusEffect();
+	private static final StatusEffect OVERBURDENED = new HarmfulStatusEffect();
+	private static final StatusEffect LIGHT_LOAD = new HarmfulStatusEffect();
+	private static final StatusEffect MEDIUM_LOAD = new HarmfulStatusEffect();
+	private static final StatusEffect HEAVY_LOAD = new HarmfulStatusEffect();
+	private static final StatusEffect POISON = new CustomPoisonStatusEffect();
+	private static final StatusEffect SHOCKED_INSTANT = new ShockedInstantStatusEffect();
+	private static final StatusEffect SHOCKED_DAMAGE_INCREASE = new HarmfulStatusEffect();
+	private static final StatusEffect STAGGERED = new HarmfulStatusEffect();
+	private static final StatusEffect WET = new HarmfulStatusEffect();
+	private static final StatusEffect WILDERNESS = new HarmfulStatusEffect();
 
 	public static void registerEffects() {
 		// --- Attribute Modifiers ---
@@ -114,6 +114,7 @@ public class StatusEffectsRegistry {
 		VariousStatusEffects.HEALTH_REGENERATION_AURA = Registry.registerReference(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("health_regeneration_aura"), HEALTH_REGENERATION_AURA);
 		VariousStatusEffects.KEEP_INVENTORY = Registry.registerReference(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("keep_inventory"), KEEP_INVENTORY);
 		VariousStatusEffects.LAVA_IMMUNE = Registry.registerReference(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("lava_immune"), LAVA_IMMUNE);
+		VariousStatusEffects.MANA_REGENERATION = Registry.registerReference(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("mana_regeneration"), MANA_REGENERATION);
 		VariousStatusEffects.NEEDS_TWO_HANDING = Registry.registerReference(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("needs_two_handing"), NEEDS_TWO_HANDING);
 		VariousStatusEffects.NO_ATTACK_ITEM = Registry.registerReference(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("no_attack_item"), NO_ATTACK_ITEM);
 		VariousStatusEffects.OVERBURDENED = Registry.registerReference(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("overburdened"), OVERBURDENED);

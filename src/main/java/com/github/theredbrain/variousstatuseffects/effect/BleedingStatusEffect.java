@@ -15,7 +15,7 @@ public class BleedingStatusEffect extends HarmfulStatusEffect {
 	public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
 		if (!entity.getEntityWorld().isClient) {
 			ServerConfig serverConfig = VariousStatusEffects.SERVER_CONFIG;
-			boolean isMoving = ((DuckLivingEntityMixin) entity).overhauleddamage$isMoving() && serverConfig.bleedingSection.moving_doubles_damage.get();
+			boolean isMoving = ((DuckLivingEntityMixin) entity).variousstatuseffects$isMoving() && serverConfig.bleedingSection.moving_doubles_damage.get();
 			float bleedingDamage = Math.max(1.0f, (float) (entity.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH) * serverConfig.bleedingSection.max_health_multiplier.get())) * (isMoving ? 2 : 1);
 			entity.damage(((DuckDamageSourcesMixin) entity.getDamageSources()).variousstatuseffects$bleeding(), bleedingDamage);
 		}

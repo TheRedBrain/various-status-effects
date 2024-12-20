@@ -61,7 +61,7 @@ public abstract class LivingEntityMixin extends Entity implements DuckLivingEnti
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"))
-	public void overhauleddamage$tick(CallbackInfo ci) {
+	public void variousstatuseffects$tick(CallbackInfo ci) {
 		if (!this.getWorld().isClient) {
 
 			this.isMoving = this.oldPosX != this.getX() || this.oldPosY != this.getY() || this.oldPosZ != this.getZ();
@@ -80,7 +80,7 @@ public abstract class LivingEntityMixin extends Entity implements DuckLivingEnti
 	}
 
 	@Override
-	public boolean overhauleddamage$isMoving() {
+	public boolean variousstatuseffects$isMoving() {
 		return this.isMoving;
 	}
 }
