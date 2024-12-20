@@ -7,6 +7,8 @@ import com.github.theredbrain.overhauleddamage.OverhauledDamage;
 import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.variousstatuseffects.VariousStatusEffects;
 import com.github.theredbrain.variousstatuseffects.spell_engine.ExtendedEntityActionsAllowedSemanticType;
+import net.combatroll.api.EntityAttributes_CombatRoll;
+import net.combatroll.internals.RollManager;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.registry.Registries;
@@ -61,6 +63,8 @@ public class StatusEffectsRegistry {
         ;
         VariousStatusEffects.HEAVY_LOAD
                 .addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, HEAVY_LOAD_EFFECT_MODIFIER_UUID, 5.0, EntityAttributeModifier.Operation.ADDITION)
+                .addAttributeModifier(EntityAttributes_CombatRoll.DISTANCE, HEAVY_LOAD_EFFECT_MODIFIER_UUID, -1.0, EntityAttributeModifier.Operation.ADDITION)
+                .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, HEAVY_LOAD_EFFECT_MODIFIER_UUID, -0.1, EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
         ;
 
         // --- Configuration ---
