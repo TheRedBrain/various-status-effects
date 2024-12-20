@@ -9,18 +9,18 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import org.jetbrains.annotations.Nullable;
 
 public class ShockedInstantStatusEffect extends InstantStatusEffect {
-    public ShockedInstantStatusEffect() {
-        super(StatusEffectCategory.HARMFUL, VariousStatusEffects.SERVER_CONFIG.shockedInstantSection.effect_color.toInt());
-    }
+	public ShockedInstantStatusEffect() {
+		super(StatusEffectCategory.HARMFUL, VariousStatusEffects.SERVER_CONFIG.shockedInstantSection.effect_color.toInt());
+	}
 
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
-        entity.damage(((DuckDamageSourcesMixin)entity.getDamageSources()).variousstatuseffects$shocked(), VariousStatusEffects.SERVER_CONFIG.shockedInstantSection.damage.get());
-        return super.applyUpdateEffect(entity, amplifier);
-    }
+	public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+		entity.damage(((DuckDamageSourcesMixin) entity.getDamageSources()).variousstatuseffects$shocked(), VariousStatusEffects.SERVER_CONFIG.shockedInstantSection.damage.get());
+		return super.applyUpdateEffect(entity, amplifier);
+	}
 
-    @Override
-    public void applyInstantEffect(@Nullable Entity source, @Nullable Entity attacker, LivingEntity target, int amplifier, double proximity) {
-        target.damage(((DuckDamageSourcesMixin)target.getDamageSources()).variousstatuseffects$shocked(), VariousStatusEffects.SERVER_CONFIG.shockedInstantSection.damage.get());
-    }
+	@Override
+	public void applyInstantEffect(@Nullable Entity source, @Nullable Entity attacker, LivingEntity target, int amplifier, double proximity) {
+		target.damage(((DuckDamageSourcesMixin) target.getDamageSources()).variousstatuseffects$shocked(), VariousStatusEffects.SERVER_CONFIG.shockedInstantSection.damage.get());
+	}
 
 }

@@ -1,9 +1,9 @@
 {
-  "values": [
-    "variousstatuseffects:bleeding_damage_type",
-    "variousstatuseffects:burning_damage_type",
-    "variousstatuseffects:poison_damage_type",
-    "variousstatuseffects:shocked_damage_type"
-  ]
+	"values": [
+		"variousstatuseffects:bleeding_damage_type",
+		"variousstatuseffects:burning_damage_type",
+		"variousstatuseffects:poison_damage_type",
+		"variousstatuseffects:shocked_damage_type"
+	]
 }
 

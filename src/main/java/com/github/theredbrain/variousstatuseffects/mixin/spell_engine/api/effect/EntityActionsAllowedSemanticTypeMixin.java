@@ -12,30 +12,30 @@ import java.util.Arrays;
 
 @Mixin(EntityActionsAllowed.SemanticType.class)
 public class EntityActionsAllowedSemanticTypeMixin {
-    @Invoker("<init>")
-    private static EntityActionsAllowed.SemanticType init(String enumName, int id) {
-        throw new AssertionError(); // unreachable statement
-    }
+	@Invoker("<init>")
+	private static EntityActionsAllowed.SemanticType init(String enumName, int id) {
+		throw new AssertionError(); // unreachable statement
+	}
 
-    // synthetic field, find the name in bytecode
-    // if you are using McDev plugin add @SuppressWarnings("ShadowTarget")
-    @Shadow(remap = false)
-    @Final
-    @Mutable
-    private static EntityActionsAllowed.SemanticType[] $VALUES;
+	// synthetic field, find the name in bytecode
+	// if you are using McDev plugin add @SuppressWarnings("ShadowTarget")
+	@Shadow(remap = false)
+	@Final
+	@Mutable
+	private static EntityActionsAllowed.SemanticType[] $VALUES;
 
-    // add new property from the static constructor
-    // static blocks are merged into the target class (at the end)
-    static {
-        ArrayList<EntityActionsAllowed.SemanticType> values = new ArrayList<>(Arrays.asList($VALUES));
-        EntityActionsAllowed.SemanticType last = values.get(values.size() - 1);
+	// add new property from the static constructor
+	// static blocks are merged into the target class (at the end)
+	static {
+		ArrayList<EntityActionsAllowed.SemanticType> values = new ArrayList<>(Arrays.asList($VALUES));
+		EntityActionsAllowed.SemanticType last = values.get(values.size() - 1);
 
-        // add new value
-        values.add(init("NO_ATTACK_ITEM", last.ordinal() + 1));
-        values.add(init("NEEDS_TWO_HANDING", last.ordinal() + 2));
-        values.add(init("STAGGERED", last.ordinal() + 3));
-        values.add(init("FROZEN", last.ordinal() + 4));
+		// add new value
+		values.add(init("NO_ATTACK_ITEM", last.ordinal() + 1));
+		values.add(init("NEEDS_TWO_HANDING", last.ordinal() + 2));
+		values.add(init("STAGGERED", last.ordinal() + 3));
+		values.add(init("FROZEN", last.ordinal() + 4));
 
-        $VALUES = values.toArray(new EntityActionsAllowed.SemanticType[0]);
-    }
+		$VALUES = values.toArray(new EntityActionsAllowed.SemanticType[0]);
+	}
 }
