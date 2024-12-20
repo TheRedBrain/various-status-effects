@@ -13,9 +13,9 @@ public class ShockedInstantStatusEffect extends InstantStatusEffect {
         super(StatusEffectCategory.HARMFUL, VariousStatusEffects.SERVER_CONFIG.shockedInstantSection.effect_color.toInt());
     }
 
-    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        super.applyUpdateEffect(entity, amplifier);
+    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
         entity.damage(((DuckDamageSourcesMixin)entity.getDamageSources()).variousstatuseffects$shocked(), VariousStatusEffects.SERVER_CONFIG.shockedInstantSection.damage.get());
+        return super.applyUpdateEffect(entity, amplifier);
     }
 
     @Override

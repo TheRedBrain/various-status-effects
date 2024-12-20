@@ -1,19 +1,12 @@
 package com.github.theredbrain.variousstatuseffects;
 
 import com.github.theredbrain.variousstatuseffects.config.ServerConfig;
-import com.github.theredbrain.variousstatuseffects.effect.AuraStatusEffect;
-import com.github.theredbrain.variousstatuseffects.effect.BeneficialStatusEffect;
-import com.github.theredbrain.variousstatuseffects.effect.BleedingStatusEffect;
-import com.github.theredbrain.variousstatuseffects.effect.BurningStatusEffect;
-import com.github.theredbrain.variousstatuseffects.effect.CustomPoisonStatusEffect;
-import com.github.theredbrain.variousstatuseffects.effect.HarmfulStatusEffect;
-import com.github.theredbrain.variousstatuseffects.effect.NeutralStatusEffect;
-import com.github.theredbrain.variousstatuseffects.effect.ShockedInstantStatusEffect;
 import com.github.theredbrain.variousstatuseffects.registry.StatusEffectsRegistry;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,30 +16,30 @@ public class VariousStatusEffects implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static ServerConfig SERVER_CONFIG = ConfigApiJava.registerAndLoadConfig(ServerConfig::new, RegisterType.BOTH);
 
-	public static final StatusEffect BLEEDING = new BleedingStatusEffect();
-	public static final StatusEffect BURNING = new BurningStatusEffect();
-	public static final StatusEffect CALAMITY = new NeutralStatusEffect();
-	public static final StatusEffect CHILLED = new HarmfulStatusEffect();
-	public static final StatusEffect CIVILISATION = new BeneficialStatusEffect();
-	public static final StatusEffect FALL_IMMUNE = new BeneficialStatusEffect();
-	public static final StatusEffect FROZEN = new HarmfulStatusEffect();
-	public static final StatusEffect HEALTH_REGENERATION = new BeneficialStatusEffect();
-	public static final StatusEffect HEALTH_REGENERATION_AURA = new AuraStatusEffect(true, true, VariousStatusEffects.HEALTH_REGENERATION, 100, 0, true, false, true);
-	public static final StatusEffect KEEP_INVENTORY = new BeneficialStatusEffect();
-	public static final StatusEffect LAVA_IMMUNE = new BeneficialStatusEffect();
-	public static final StatusEffect MANA_REGENERATION = new BeneficialStatusEffect();
-	public static final StatusEffect NEEDS_TWO_HANDING = new NeutralStatusEffect();
-	public static final StatusEffect NO_ATTACK_ITEM = new NeutralStatusEffect();
-	public static final StatusEffect OVERBURDENED = new HarmfulStatusEffect();
-	public static final StatusEffect LIGHT_LOAD = new HarmfulStatusEffect();
-	public static final StatusEffect MEDIUM_LOAD = new HarmfulStatusEffect();
-	public static final StatusEffect HEAVY_LOAD = new HarmfulStatusEffect();
-	public static final StatusEffect POISON = new CustomPoisonStatusEffect();
-	public static final StatusEffect SHOCKED_INSTANT = new ShockedInstantStatusEffect();
-	public static final StatusEffect SHOCKED_DAMAGE_INCREASE = new HarmfulStatusEffect();
-	public static final StatusEffect STAGGERED = new HarmfulStatusEffect();
-	public static final StatusEffect WET = new HarmfulStatusEffect();
-	public static final StatusEffect WILDERNESS = new HarmfulStatusEffect();
+	public static RegistryEntry<StatusEffect> BLEEDING;
+	public static RegistryEntry<StatusEffect> BURNING;
+	public static RegistryEntry<StatusEffect> CALAMITY;
+	public static RegistryEntry<StatusEffect> CHILLED;
+	public static RegistryEntry<StatusEffect> CIVILISATION;
+	public static RegistryEntry<StatusEffect> FALL_IMMUNE;
+	public static RegistryEntry<StatusEffect> FROZEN;
+	public static RegistryEntry<StatusEffect> HEALTH_REGENERATION;
+	public static RegistryEntry<StatusEffect> HEALTH_REGENERATION_AURA;
+	public static RegistryEntry<StatusEffect> KEEP_INVENTORY;
+	public static RegistryEntry<StatusEffect> LAVA_IMMUNE;
+	public static RegistryEntry<StatusEffect> MANA_REGENERATION;
+	public static RegistryEntry<StatusEffect> NEEDS_TWO_HANDING;
+	public static RegistryEntry<StatusEffect> NO_ATTACK_ITEM;
+	public static RegistryEntry<StatusEffect> OVERBURDENED;
+	public static RegistryEntry<StatusEffect> LIGHT_LOAD;
+	public static RegistryEntry<StatusEffect> MEDIUM_LOAD;
+	public static RegistryEntry<StatusEffect> HEAVY_LOAD;
+	public static RegistryEntry<StatusEffect> POISON;
+	public static RegistryEntry<StatusEffect> SHOCKED_INSTANT;
+	public static RegistryEntry<StatusEffect> SHOCKED_DAMAGE_INCREASE;
+	public static RegistryEntry<StatusEffect> STAGGERED;
+	public static RegistryEntry<StatusEffect> WET;
+	public static RegistryEntry<StatusEffect> WILDERNESS;
 
 	@Override
 	public void onInitialize() {
@@ -55,6 +48,6 @@ public class VariousStatusEffects implements ModInitializer {
 	}
 
 	public static Identifier identifier(String path) {
-		return new Identifier(MOD_ID, path);
+		return Identifier.of(MOD_ID, path);
 	}
 }

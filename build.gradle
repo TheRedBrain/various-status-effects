@@ -107,7 +107,7 @@ dependencies {
     modImplementation "maven.modrinth:resource-bar-api:${project.resource_bar_api_version}"
 
     // Combat Roll
-    modImplementation "maven.modrinth:combat-roll:${project.combat_roll_version}"
+    modImplementation "maven.modrinth:combat-roll:${project.combat_roll_version}-fabric"
 
     // Combat Roll Extension
     modImplementation "maven.modrinth:combat-roll-extension:${project.combat_roll_extension_version}"
@@ -124,7 +124,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
+    it.options.release = 21
 }
 
 java {
@@ -133,8 +133,8 @@ java {
     // If you remove this line, sources will not be generated.
     withSourcesJar()
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {

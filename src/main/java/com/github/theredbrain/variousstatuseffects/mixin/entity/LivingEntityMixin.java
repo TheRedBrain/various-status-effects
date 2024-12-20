@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -31,13 +32,11 @@ public abstract class LivingEntityMixin extends Entity implements DuckLivingEnti
     @Shadow
     public abstract boolean addStatusEffect(StatusEffectInstance effect);
 
-    @Shadow
-    public abstract @Nullable StatusEffectInstance getStatusEffect(StatusEffect effect);
+    @Shadow public abstract boolean hasStatusEffect(RegistryEntry<StatusEffect> effect);
 
-    @Shadow
-    public abstract boolean removeStatusEffect(StatusEffect type);
+    @Shadow public abstract @Nullable StatusEffectInstance getStatusEffect(RegistryEntry<StatusEffect> effect);
 
-    @Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
+    @Shadow public abstract boolean removeStatusEffect(RegistryEntry<StatusEffect> effect);
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
