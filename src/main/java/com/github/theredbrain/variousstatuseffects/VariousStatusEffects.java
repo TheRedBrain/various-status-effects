@@ -47,6 +47,7 @@ public class VariousStatusEffects implements ModInitializer {
 	public static final StatusEffect STAGGERED = new HarmfulStatusEffect();
 	public static final StatusEffect WET = new HarmfulStatusEffect();
 	public static final StatusEffect WILDERNESS = new HarmfulStatusEffect();
+	public static final StatusEffect HIT_STUN = new HarmfulStatusEffect();
 
 	@Override
 	public void onInitialize() {

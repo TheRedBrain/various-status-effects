@@ -28,6 +28,7 @@ public class StatusEffectsRegistry {
     private static final String LIGHT_LOAD_EFFECT_MODIFIER_UUID = "f7744d2e-a275-4f6f-b723-0de447993ca8";
     private static final String MEDIUM_LOAD_EFFECT_MODIFIER_UUID = "473e8074-041c-4553-851b-29bc8e459cc4";
     private static final String HEAVY_LOAD_EFFECT_MODIFIER_UUID = "63b79b82-e453-44c9-81f0-d3d75e17a026";
+    private static final String HIT_STUN_EFFECT_MODIFIER_UUID = "1282d032-d398-48a8-891d-3aef68eba8a5";
 
     public static void registerEffects() {
         // --- Attribute Modifiers ---
@@ -66,6 +67,9 @@ public class StatusEffectsRegistry {
                 .addAttributeModifier(EntityAttributes_CombatRoll.DISTANCE, HEAVY_LOAD_EFFECT_MODIFIER_UUID, -1.0, EntityAttributeModifier.Operation.ADDITION)
                 .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, HEAVY_LOAD_EFFECT_MODIFIER_UUID, -0.1, EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
         ;
+        VariousStatusEffects.HIT_STUN
+                .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, HIT_STUN_EFFECT_MODIFIER_UUID, -0.25, EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
+        ;
 
         // --- Configuration ---
         ActionImpairing.configure(VariousStatusEffects.NO_ATTACK_ITEM, new EntityActionsAllowed(true, true, new EntityActionsAllowed.PlayersAllowed(false, true, true), new EntityActionsAllowed.MobsAllowed(true), ExtendedEntityActionsAllowedSemanticType.NO_ATTACK_ITEM));
@@ -73,6 +77,7 @@ public class StatusEffectsRegistry {
         ActionImpairing.configure(VariousStatusEffects.STAGGERED, new EntityActionsAllowed(false, false, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), ExtendedEntityActionsAllowedSemanticType.STAGGERED));
         ActionImpairing.configure(VariousStatusEffects.OVERBURDENED, new EntityActionsAllowed(false, true, new EntityActionsAllowed.PlayersAllowed(true, true, true), new EntityActionsAllowed.MobsAllowed(true), EntityActionsAllowed.SemanticType.NONE));
         ActionImpairing.configure(VariousStatusEffects.FROZEN, new EntityActionsAllowed(false, false, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), ExtendedEntityActionsAllowedSemanticType.FROZEN));
+        ActionImpairing.configure(VariousStatusEffects.HIT_STUN, new EntityActionsAllowed(false, true, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), EntityActionsAllowed.SemanticType.STUN));
 
         Synchronized.configure(VariousStatusEffects.BURNING, true);
         Synchronized.configure(VariousStatusEffects.CHILLED, true);
@@ -80,6 +85,7 @@ public class StatusEffectsRegistry {
         Synchronized.configure(VariousStatusEffects.HEALTH_REGENERATION_AURA, true);
         Synchronized.configure(VariousStatusEffects.STAGGERED, true);
         Synchronized.configure(VariousStatusEffects.WET, true);
+        Synchronized.configure(VariousStatusEffects.HIT_STUN, true);
 
         // --- Registration ---
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("bleeding"), VariousStatusEffects.BLEEDING);
@@ -105,5 +111,6 @@ public class StatusEffectsRegistry {
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("light_load"), VariousStatusEffects.LIGHT_LOAD);
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("medium_load"), VariousStatusEffects.MEDIUM_LOAD);
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("heavy_load"), VariousStatusEffects.HEAVY_LOAD);
+        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("hit_stun"), VariousStatusEffects.HIT_STUN);
     }
 }
