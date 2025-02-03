@@ -127,6 +127,7 @@ public class StatusEffectsRegistry {
 			ActionImpairing.configure(FROZEN, new EntityActionsAllowed(false, false, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), ExtendedEntityActionsAllowedSemanticType.FROZEN));
             ActionImpairing.configure(HIT_STUN, new EntityActionsAllowed(false, true, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), EntityActionsAllowed.SemanticType.STUN));
 
+			Synchronized.configure(BLEEDING, true);
 			Synchronized.configure(BURNING, true);
 			Synchronized.configure(CHILLED, true);
 			Synchronized.configure(FROZEN, true);
