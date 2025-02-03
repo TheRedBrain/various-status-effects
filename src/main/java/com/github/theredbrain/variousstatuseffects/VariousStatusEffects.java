@@ -8,7 +8,9 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.Identifier;
+import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +27,7 @@ public class VariousStatusEffects implements ModInitializer {
 	public static final boolean isCombatRollExtensionLoaded = FabricLoader.getInstance().isModLoaded("combatrollextension");
 	public static final boolean isCombatRollLoaded = FabricLoader.getInstance().isModLoaded("combat_roll");
 	public static final boolean isSpellEngineLoaded = FabricLoader.getInstance().isModLoaded("spell_engine");
+	public static DefaultParticleType BLOOD_DROP;
 
 	public static RegistryEntry<StatusEffect> BLEEDING;
 	public static RegistryEntry<StatusEffect> BURNING;
@@ -57,6 +60,7 @@ public class VariousStatusEffects implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Status effects for everyone!");
 		SERVER_CONFIG = ConfigApiJava.registerAndLoadConfig(ServerConfig::new, RegisterType.BOTH);
+		ParticleRegistry.registerParticles();
 		StatusEffectsRegistry.registerEffects();
 	}
 
