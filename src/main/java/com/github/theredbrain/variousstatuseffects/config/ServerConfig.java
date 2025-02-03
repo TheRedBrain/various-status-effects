@@ -7,6 +7,7 @@ import me.fzzyhmstrs.fzzy_config.config.Config;
 import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedBoolean;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedColor;
+import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedDouble;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedFloat;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
 
@@ -47,6 +48,33 @@ public class ServerConfig extends Config {
 	public static class ShockedInstantSection extends ConfigSection {
 		public ValidatedFloat damage = new ValidatedFloat(10.0f);
 		public ValidatedColor effect_color = new ValidatedColor(1, 1, 1);
+	}
+
+	public LightLoadSection lightLoadSection = new LightLoadSection();
+
+	public static class LightLoadSection extends ConfigSection {
+		public ValidatedDouble additional_roll_invulnerability_frames = new ValidatedDouble(7.0);
+	}
+
+	public MediumLoadSection mediumLoadSection = new MediumLoadSection();
+
+	public static class MediumLoadSection extends ConfigSection {
+		public ValidatedDouble additional_roll_invulnerability_frames = new ValidatedDouble(6.0);
+	}
+
+	public HeavyLoadSection heavyLoadSection = new HeavyLoadSection();
+
+	public static class HeavyLoadSection extends ConfigSection {
+		public ValidatedDouble additional_roll_invulnerability_frames = new ValidatedDouble(5.0);
+		public ValidatedDouble additional_roll_distance = new ValidatedDouble(-1.0);
+		public ValidatedDouble movement_speed_total_multiplier = new ValidatedDouble(-0.2);
+	}
+
+	public HitStunSection hitStunSection = new HitStunSection();
+
+	public static class HitStunSection extends ConfigSection {
+		public ValidatedDouble additional_roll_distance = new ValidatedDouble(0.0);
+		public ValidatedDouble movement_speed_total_multiplier = new ValidatedDouble(-0.7);
 	}
 
 }

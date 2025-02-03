@@ -21,37 +21,39 @@ import org.slf4j.LoggerFactory;
 public class VariousStatusEffects implements ModInitializer {
 	public static final String MOD_ID = "variousstatuseffects";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static ServerConfig SERVER_CONFIG = ConfigApiJava.registerAndLoadConfig(ServerConfig::new, RegisterType.BOTH);
+	public static ServerConfig SERVER_CONFIG;
 
-	public static final StatusEffect BLEEDING = new BleedingStatusEffect();
-	public static final StatusEffect BURNING = new BurningStatusEffect();
-	public static final StatusEffect CALAMITY = new NeutralStatusEffect();
-	public static final StatusEffect CHILLED = new HarmfulStatusEffect();
-	public static final StatusEffect CIVILISATION = new BeneficialStatusEffect();
-	public static final StatusEffect FALL_IMMUNE = new BeneficialStatusEffect();
-	public static final StatusEffect FROZEN = new HarmfulStatusEffect();
-	public static final StatusEffect HEALTH_REGENERATION = new BeneficialStatusEffect();
-	public static final StatusEffect HEALTH_REGENERATION_AURA = new AuraStatusEffect(true, true, VariousStatusEffects.HEALTH_REGENERATION, 100, 0, true, false, true);
-	public static final StatusEffect KEEP_INVENTORY = new BeneficialStatusEffect();
-	public static final StatusEffect LAVA_IMMUNE = new BeneficialStatusEffect();
-	public static final StatusEffect MANA_REGENERATION = new BeneficialStatusEffect();
-	public static final StatusEffect NEEDS_TWO_HANDING = new NeutralStatusEffect();
-	public static final StatusEffect NO_ATTACK_ITEM = new NeutralStatusEffect();
-	public static final StatusEffect OVERBURDENED = new HarmfulStatusEffect();
-	public static final StatusEffect LIGHT_LOAD = new HarmfulStatusEffect();
-	public static final StatusEffect MEDIUM_LOAD = new HarmfulStatusEffect();
-	public static final StatusEffect HEAVY_LOAD = new HarmfulStatusEffect();
-	public static final StatusEffect POISON = new CustomPoisonStatusEffect();
-	public static final StatusEffect SHOCKED_INSTANT = new ShockedInstantStatusEffect();
-	public static final StatusEffect SHOCKED_DAMAGE_INCREASE = new HarmfulStatusEffect();
-	public static final StatusEffect STAGGERED = new HarmfulStatusEffect();
-	public static final StatusEffect WET = new HarmfulStatusEffect();
-	public static final StatusEffect WILDERNESS = new HarmfulStatusEffect();
-	public static final StatusEffect HIT_STUN = new HarmfulStatusEffect();
+
+	public static StatusEffect BLEEDING;
+	public static StatusEffect BURNING;
+	public static StatusEffect CALAMITY;
+	public static StatusEffect CHILLED;
+	public static StatusEffect CIVILISATION;
+	public static StatusEffect FALL_IMMUNE;
+	public static StatusEffect FROZEN;
+	public static StatusEffect HEALTH_REGENERATION;
+	public static StatusEffect HEALTH_REGENERATION_AURA;
+	public static StatusEffect KEEP_INVENTORY;
+	public static StatusEffect LAVA_IMMUNE;
+	public static StatusEffect MANA_REGENERATION;
+	public static StatusEffect NEEDS_TWO_HANDING;
+	public static StatusEffect NO_ATTACK_ITEM;
+	public static StatusEffect OVERBURDENED;
+	public static StatusEffect LIGHT_LOAD;
+	public static StatusEffect MEDIUM_LOAD;
+	public static StatusEffect HEAVY_LOAD;
+	public static StatusEffect POISON;
+	public static StatusEffect SHOCKED_INSTANT;
+	public static StatusEffect SHOCKED_DAMAGE_INCREASE;
+	public static StatusEffect STAGGERED;
+	public static StatusEffect WET;
+	public static StatusEffect WILDERNESS;
+	public static StatusEffect HIT_STUN;
 
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Status effects for everyone!");
+		SERVER_CONFIG = ConfigApiJava.registerAndLoadConfig(ServerConfig::new, RegisterType.BOTH);
 		StatusEffectsRegistry.registerEffects();
 	}
 

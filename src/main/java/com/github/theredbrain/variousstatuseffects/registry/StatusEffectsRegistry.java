@@ -6,11 +6,21 @@ import com.github.theredbrain.manaattributes.ManaAttributes;
 import com.github.theredbrain.overhauleddamage.OverhauledDamage;
 import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.variousstatuseffects.VariousStatusEffects;
+import com.github.theredbrain.variousstatuseffects.config.ServerConfig;
+import com.github.theredbrain.variousstatuseffects.effect.AuraStatusEffect;
+import com.github.theredbrain.variousstatuseffects.effect.BeneficialStatusEffect;
+import com.github.theredbrain.variousstatuseffects.effect.BleedingStatusEffect;
+import com.github.theredbrain.variousstatuseffects.effect.BurningStatusEffect;
+import com.github.theredbrain.variousstatuseffects.effect.CustomPoisonStatusEffect;
+import com.github.theredbrain.variousstatuseffects.effect.HarmfulStatusEffect;
+import com.github.theredbrain.variousstatuseffects.effect.NeutralStatusEffect;
+import com.github.theredbrain.variousstatuseffects.effect.ShockedInstantStatusEffect;
 import com.github.theredbrain.variousstatuseffects.spell_engine.ExtendedEntityActionsAllowedSemanticType;
 import net.combatroll.api.EntityAttributes_CombatRoll;
 import net.combatroll.internals.RollManager;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.spell_engine.api.effect.ActionImpairing;
@@ -31,6 +41,35 @@ public class StatusEffectsRegistry {
     private static final String HIT_STUN_EFFECT_MODIFIER_UUID = "1282d032-d398-48a8-891d-3aef68eba8a5";
 
     public static void registerEffects() {
+        ServerConfig serverConfig = VariousStatusEffects.SERVER_CONFIG;
+
+
+        VariousStatusEffects.BLEEDING = new BleedingStatusEffect();
+        VariousStatusEffects.BURNING = new BurningStatusEffect();
+        VariousStatusEffects.CALAMITY = new NeutralStatusEffect();
+        VariousStatusEffects.CHILLED = new HarmfulStatusEffect();
+        VariousStatusEffects.CIVILISATION = new BeneficialStatusEffect();
+        VariousStatusEffects.FALL_IMMUNE = new BeneficialStatusEffect();
+        VariousStatusEffects.FROZEN = new HarmfulStatusEffect();
+        VariousStatusEffects.HEALTH_REGENERATION = new BeneficialStatusEffect();
+        VariousStatusEffects.HEALTH_REGENERATION_AURA = new AuraStatusEffect(true, true, VariousStatusEffects.HEALTH_REGENERATION, 100, 0, true, false, true);
+        VariousStatusEffects.KEEP_INVENTORY = new BeneficialStatusEffect();
+        VariousStatusEffects.LAVA_IMMUNE = new BeneficialStatusEffect();
+        VariousStatusEffects.MANA_REGENERATION = new BeneficialStatusEffect();
+        VariousStatusEffects.NEEDS_TWO_HANDING = new NeutralStatusEffect();
+        VariousStatusEffects.NO_ATTACK_ITEM = new NeutralStatusEffect();
+        VariousStatusEffects.OVERBURDENED = new HarmfulStatusEffect();
+        VariousStatusEffects.LIGHT_LOAD = new HarmfulStatusEffect();
+        VariousStatusEffects.MEDIUM_LOAD = new HarmfulStatusEffect();
+        VariousStatusEffects.HEAVY_LOAD = new HarmfulStatusEffect();
+        VariousStatusEffects.POISON = new CustomPoisonStatusEffect();
+        VariousStatusEffects.SHOCKED_INSTANT = new ShockedInstantStatusEffect();
+        VariousStatusEffects.SHOCKED_DAMAGE_INCREASE = new HarmfulStatusEffect();
+        VariousStatusEffects.STAGGERED = new HarmfulStatusEffect();
+        VariousStatusEffects.WET = new HarmfulStatusEffect();
+        VariousStatusEffects.WILDERNESS = new HarmfulStatusEffect();
+        VariousStatusEffects.HIT_STUN = new HarmfulStatusEffect();
+        
         // --- Attribute Modifiers ---
         VariousStatusEffects.CHILLED
                 .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, CHILLED_EFFECT_MODIFIER_UUID, -0.15F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
@@ -57,18 +96,19 @@ public class StatusEffectsRegistry {
 //                .addAttributeModifier(OverhauledDamage.DAMAGE_TAKEN_MULTIPLIER, SHOCKED_DAMAGE_INCREASE_EFFECT_MODIFIER_UUID, 0.25, EntityAttributeModifier.Operation.ADDITION)
 //        ;
         VariousStatusEffects.LIGHT_LOAD
-                .addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, LIGHT_LOAD_EFFECT_MODIFIER_UUID, 7.0, EntityAttributeModifier.Operation.ADDITION)
+                .addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, LIGHT_LOAD_EFFECT_MODIFIER_UUID, serverConfig.lightLoadSection.additional_roll_invulnerability_frames.get(), EntityAttributeModifier.Operation.ADDITION)
         ;
         VariousStatusEffects.MEDIUM_LOAD
-                .addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, MEDIUM_LOAD_EFFECT_MODIFIER_UUID, 6.0, EntityAttributeModifier.Operation.ADDITION)
+                .addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, MEDIUM_LOAD_EFFECT_MODIFIER_UUID, serverConfig.mediumLoadSection.additional_roll_invulnerability_frames.get(), EntityAttributeModifier.Operation.ADDITION)
         ;
         VariousStatusEffects.HEAVY_LOAD
-                .addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, HEAVY_LOAD_EFFECT_MODIFIER_UUID, 5.0, EntityAttributeModifier.Operation.ADDITION)
-                .addAttributeModifier(EntityAttributes_CombatRoll.DISTANCE, HEAVY_LOAD_EFFECT_MODIFIER_UUID, -1.0, EntityAttributeModifier.Operation.ADDITION)
-                .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, HEAVY_LOAD_EFFECT_MODIFIER_UUID, -0.1, EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
+                .addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, HEAVY_LOAD_EFFECT_MODIFIER_UUID, serverConfig.heavyLoadSection.additional_roll_invulnerability_frames.get(), EntityAttributeModifier.Operation.ADDITION)
+                .addAttributeModifier(EntityAttributes_CombatRoll.DISTANCE, HEAVY_LOAD_EFFECT_MODIFIER_UUID, serverConfig.heavyLoadSection.additional_roll_distance.get(), EntityAttributeModifier.Operation.ADDITION)
+                .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, HEAVY_LOAD_EFFECT_MODIFIER_UUID, serverConfig.heavyLoadSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
         ;
         VariousStatusEffects.HIT_STUN
-                .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, HIT_STUN_EFFECT_MODIFIER_UUID, -0.25, EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
+                .addAttributeModifier(EntityAttributes_CombatRoll.DISTANCE, HIT_STUN_EFFECT_MODIFIER_UUID, serverConfig.hitStunSection.additional_roll_distance.get(), EntityAttributeModifier.Operation.ADDITION)
+                .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, HIT_STUN_EFFECT_MODIFIER_UUID, serverConfig.hitStunSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
         ;
 
         // --- Configuration ---
@@ -79,6 +119,7 @@ public class StatusEffectsRegistry {
         ActionImpairing.configure(VariousStatusEffects.FROZEN, new EntityActionsAllowed(false, false, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), ExtendedEntityActionsAllowedSemanticType.FROZEN));
         ActionImpairing.configure(VariousStatusEffects.HIT_STUN, new EntityActionsAllowed(false, true, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), EntityActionsAllowed.SemanticType.STUN));
 
+        Synchronized.configure(VariousStatusEffects.BLEEDING, true);
         Synchronized.configure(VariousStatusEffects.BURNING, true);
         Synchronized.configure(VariousStatusEffects.CHILLED, true);
         Synchronized.configure(VariousStatusEffects.FROZEN, true);
