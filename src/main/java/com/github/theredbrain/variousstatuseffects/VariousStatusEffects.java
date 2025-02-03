@@ -9,12 +9,15 @@ import com.github.theredbrain.variousstatuseffects.effect.CustomPoisonStatusEffe
 import com.github.theredbrain.variousstatuseffects.effect.HarmfulStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.NeutralStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.ShockedInstantStatusEffect;
+import com.github.theredbrain.variousstatuseffects.registry.ParticleRegistry;
 import com.github.theredbrain.variousstatuseffects.registry.StatusEffectsRegistry;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.Identifier;
+import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +26,7 @@ public class VariousStatusEffects implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static ServerConfig SERVER_CONFIG;
 
+	public static DefaultParticleType BLOOD_DROP;
 
 	public static StatusEffect BLEEDING;
 	public static StatusEffect BURNING;
@@ -54,6 +58,7 @@ public class VariousStatusEffects implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Status effects for everyone!");
 		SERVER_CONFIG = ConfigApiJava.registerAndLoadConfig(ServerConfig::new, RegisterType.BOTH);
+		ParticleRegistry.registerParticles();
 		StatusEffectsRegistry.registerEffects();
 	}
 
