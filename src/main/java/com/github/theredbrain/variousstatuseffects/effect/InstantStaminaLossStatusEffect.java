@@ -12,9 +12,9 @@ public class InstantStaminaLossStatusEffect extends InstantStatusEffect {
 		super(StatusEffectCategory.HARMFUL, VariousStatusEffects.SERVER_CONFIG.instantStaminaLossSection.effect_color.toInt());
 	}
 
-	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-		super.applyUpdateEffect(entity, amplifier);
+	public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
 		VariousStatusEffects.addStamina(entity, - VariousStatusEffects.SERVER_CONFIG.instantStaminaLossSection.loss_per_level.get() * (amplifier + 1));
+		return true;
 	}
 
 	@Override

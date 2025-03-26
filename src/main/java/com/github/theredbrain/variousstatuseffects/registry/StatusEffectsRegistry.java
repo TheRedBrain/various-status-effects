@@ -31,33 +31,33 @@ import net.spell_engine.api.effect.Synchronized;
 public class StatusEffectsRegistry {
 
 	//region
-	private static final StatusEffect BLEEDING = new BleedingStatusEffect();
-	private static final StatusEffect BURNING = new BurningStatusEffect();
-	private static final StatusEffect CALAMITY = new NeutralStatusEffect();
-	private static final StatusEffect CHILLED = new HarmfulStatusEffect();
-	private static final StatusEffect CIVILISATION = new BeneficialStatusEffect();
-	private static final StatusEffect FALL_IMMUNE = new BeneficialStatusEffect();
-	private static final StatusEffect FROZEN = new HarmfulStatusEffect();
-	private static final StatusEffect HEALTH_REGENERATION = new BeneficialStatusEffect();
-	private static final StatusEffect HEALTH_REGENERATION_AURA = new AuraStatusEffect(true, true, VariousStatusEffects.HEALTH_REGENERATION, 100, 0, true, false, true);
-	private static final StatusEffect KEEP_INVENTORY = new BeneficialStatusEffect();
-	private static final StatusEffect LAVA_IMMUNE = new BeneficialStatusEffect();
-	private static final StatusEffect MANA_REGENERATION = new BeneficialStatusEffect();
-	private static final StatusEffect NEEDS_TWO_HANDING = new NeutralStatusEffect();
-	private static final StatusEffect NO_ATTACK_ITEM = new NeutralStatusEffect();
-	private static final StatusEffect OVERBURDENED = new HarmfulStatusEffect();
-	private static final StatusEffect LIGHT_LOAD = new HarmfulStatusEffect();
-	private static final StatusEffect MEDIUM_LOAD = new HarmfulStatusEffect();
-	private static final StatusEffect HEAVY_LOAD = new HarmfulStatusEffect();
-	private static final StatusEffect POISON = new CustomPoisonStatusEffect();
-	private static final StatusEffect SHOCKED_INSTANT = new ShockedInstantStatusEffect();
-	private static final StatusEffect SHOCKED_DAMAGE_INCREASE = new HarmfulStatusEffect();
-	private static final StatusEffect STAGGERED = new HarmfulStatusEffect();
-	private static final StatusEffect WET = new HarmfulStatusEffect();
-	private static final StatusEffect WILDERNESS = new HarmfulStatusEffect();
-	private static final StatusEffect HIT_STUN = new HarmfulStatusEffect();
-    private static final StatusEffect INSTANT_STAMINA_LOSS = new InstantStaminaLossStatusEffect();
-    private static final StatusEffect INSTANT_STAGGER_BUILD_UP = new InstantStaggerBuildUpStatusEffect();
+	public static final StatusEffect BLEEDING = new BleedingStatusEffect();
+	public static final StatusEffect BURNING = new BurningStatusEffect();
+	public static final StatusEffect CALAMITY = new NeutralStatusEffect();
+	public static final StatusEffect CHILLED = new HarmfulStatusEffect();
+	public static final StatusEffect CIVILISATION = new BeneficialStatusEffect();
+	public static final StatusEffect FALL_IMMUNE = new BeneficialStatusEffect();
+	public static final StatusEffect FROZEN = new HarmfulStatusEffect();
+	public static final StatusEffect HEALTH_REGENERATION = new BeneficialStatusEffect();
+	public static final StatusEffect HEALTH_REGENERATION_AURA = new AuraStatusEffect(true, true, VariousStatusEffects.HEALTH_REGENERATION, 100, 0, true, false, true);
+	public static final StatusEffect KEEP_INVENTORY = new BeneficialStatusEffect();
+	public static final StatusEffect LAVA_IMMUNE = new BeneficialStatusEffect();
+	public static final StatusEffect MANA_REGENERATION = new BeneficialStatusEffect();
+	public static final StatusEffect NEEDS_TWO_HANDING = new NeutralStatusEffect();
+	public static final StatusEffect NO_ATTACK_ITEM = new NeutralStatusEffect();
+	public static final StatusEffect OVERBURDENED = new HarmfulStatusEffect();
+	public static final StatusEffect LIGHT_LOAD = new HarmfulStatusEffect();
+	public static final StatusEffect MEDIUM_LOAD = new HarmfulStatusEffect();
+	public static final StatusEffect HEAVY_LOAD = new HarmfulStatusEffect();
+	public static final StatusEffect POISON = new CustomPoisonStatusEffect();
+	public static final StatusEffect SHOCKED_INSTANT = new ShockedInstantStatusEffect();
+	public static final StatusEffect SHOCKED_DAMAGE_INCREASE = new HarmfulStatusEffect();
+	public static final StatusEffect STAGGERED = new HarmfulStatusEffect();
+	public static final StatusEffect WET = new HarmfulStatusEffect();
+	public static final StatusEffect WILDERNESS = new HarmfulStatusEffect();
+	public static final StatusEffect HIT_STUN = new HarmfulStatusEffect();
+    public static final StatusEffect INSTANT_STAMINA_LOSS = new InstantStaminaLossStatusEffect();
+    public static final StatusEffect INSTANT_STAGGER_BUILD_UP = new InstantStaggerBuildUpStatusEffect();
 	// endregion
 
     public static void registerEffects() {
@@ -168,8 +168,8 @@ public class StatusEffectsRegistry {
         VariousStatusEffects.MEDIUM_LOAD = register("medium_load", MEDIUM_LOAD);
         VariousStatusEffects.HEAVY_LOAD = register("heavy_load", HEAVY_LOAD);
         VariousStatusEffects.HIT_STUN = register("hit_stun", HIT_STUN);
-        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("instant_stagger_build_up"), VariousStatusEffects.INSTANT_STAGGER_BUILD_UP);
-        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("instant_stamina_loss"), VariousStatusEffects.INSTANT_STAMINA_LOSS);
+        VariousStatusEffects.INSTANT_STAGGER_BUILD_UP = register("instant_stagger_build_up", INSTANT_STAGGER_BUILD_UP);
+        VariousStatusEffects.INSTANT_STAMINA_LOSS = register("instant_stamina_loss", INSTANT_STAMINA_LOSS);
     }
 
     private static RegistryEntry<StatusEffect> register(String identifierString, StatusEffect statusEffect) {

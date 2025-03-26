@@ -12,9 +12,9 @@ public class InstantStaggerBuildUpStatusEffect extends InstantStatusEffect {
 		super(StatusEffectCategory.HARMFUL, VariousStatusEffects.SERVER_CONFIG.instantStaggerBuildUpSection.effect_color.toInt());
 	}
 
-	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-		super.applyUpdateEffect(entity, amplifier);
+	public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
 		VariousStatusEffects.addStaggerBuildUp(entity, VariousStatusEffects.SERVER_CONFIG.instantStaggerBuildUpSection.build_up_per_level.get() * (amplifier + 1));
+		return true;
 	}
 
 	@Override

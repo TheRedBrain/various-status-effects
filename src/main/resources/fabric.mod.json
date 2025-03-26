@@ -22,11 +22,7 @@
 		]
 	},
 	"mixins": [
-		"variousstatuseffects.mixins.json",
-		{
-			"config": "variousstatuseffects.client.mixins.json",
-			"environment": "client"
-		}
+		"variousstatuseffects.mixins.json"
 	],
 	"custom": {
 		"fzzy_config": [

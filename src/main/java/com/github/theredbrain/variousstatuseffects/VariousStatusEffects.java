@@ -5,6 +5,7 @@ import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import com.github.theredbrain.overhauleddamage.entity.DuckLivingEntityMixin;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import com.github.theredbrain.variousstatuseffects.config.ServerConfig;
+import com.github.theredbrain.variousstatuseffects.registry.ParticleRegistry;
 import com.github.theredbrain.variousstatuseffects.registry.StatusEffectsRegistry;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import me.fzzyhmstrs.fzzy_config.api.RegisterType;
@@ -14,8 +15,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.Identifier;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import org.slf4j.Logger;
@@ -34,8 +35,8 @@ public class VariousStatusEffects implements ModInitializer {
 	public static final boolean isCombatRollExtensionLoaded = FabricLoader.getInstance().isModLoaded("combatrollextension");
 	public static final boolean isCombatRollLoaded = FabricLoader.getInstance().isModLoaded("combat_roll");
 	public static final boolean isSpellEngineLoaded = FabricLoader.getInstance().isModLoaded("spell_engine");
-	public static DefaultParticleType BLOOD_DROP;
-	public static DefaultParticleType HIT_STUN_PARTICLE;
+	public static SimpleParticleType BLOOD_DROP;
+	public static SimpleParticleType HIT_STUN_PARTICLE;
 
 	public static RegistryEntry<StatusEffect> BLEEDING;
 	public static RegistryEntry<StatusEffect> BURNING;
@@ -62,8 +63,8 @@ public class VariousStatusEffects implements ModInitializer {
 	public static RegistryEntry<StatusEffect> WET;
 	public static RegistryEntry<StatusEffect> WILDERNESS;
 	public static RegistryEntry<StatusEffect> HIT_STUN;
-	public static StatusEffect INSTANT_STAMINA_LOSS;
-	public static StatusEffect INSTANT_STAGGER_BUILD_UP;
+	public static RegistryEntry<StatusEffect> INSTANT_STAMINA_LOSS;
+	public static RegistryEntry<StatusEffect> INSTANT_STAGGER_BUILD_UP;
 
 	public static void addStamina(LivingEntity livingEntity, float amount) {
 		if (isStaminaAttributesLoaded) {

@@ -3,6 +3,7 @@ package com.github.theredbrain.variousstatuseffects;
 import com.github.theredbrain.variousstatuseffects.effect.BleedingParticleSpawner;
 import com.github.theredbrain.variousstatuseffects.effect.HitStunParticleSpawner;
 import com.github.theredbrain.variousstatuseffects.registry.ParticleFactoriesRegistry;
+import com.github.theredbrain.variousstatuseffects.registry.StatusEffectsRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,7 +14,7 @@ public class VariousStatusEffectsClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		ParticleFactoriesRegistry.registerParticleFactories();
-		CustomParticleStatusEffect.register(VariousStatusEffects.BLEEDING, new BleedingParticleSpawner());
-		CustomParticleStatusEffect.register(VariousStatusEffects.HIT_STUN, new HitStunParticleSpawner());
+		CustomParticleStatusEffect.register(StatusEffectsRegistry.BLEEDING, new BleedingParticleSpawner());
+		CustomParticleStatusEffect.register(StatusEffectsRegistry.HIT_STUN, new HitStunParticleSpawner());
 	}
 }
