@@ -2,8 +2,8 @@ package com.github.theredbrain.variousstatuseffects.effect;
 
 import net.minecraft.entity.LivingEntity;
 import net.spell_engine.api.effect.CustomParticleStatusEffect;
-import net.spell_engine.api.spell.ParticleBatch;
-import net.spell_engine.particle.ParticleHelper;
+import net.spell_engine.api.spell.fx.ParticleBatch;
+import net.spell_engine.fx.ParticleHelper;
 
 public class BleedingParticleSpawner implements CustomParticleStatusEffect.Spawner {
 	private final ParticleBatch particles;

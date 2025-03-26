@@ -30,6 +30,12 @@ repositories {
         url = "https://maven.terraformersmc.com/"
     }
 
+    // Trinkets, Cardinal Components
+    maven {
+        name = "Ladysnake Libs"
+        url = 'https://maven.ladysnake.org/releases'
+    }
+
     // Spell Power, Spell Engine, Mana Attributes, Stamina Attributes, Overhauled Damage, Health Regeneration Overhaul, Combat Roll Extension, Resource Bar API
     maven {
         name = "Modrinth"
@@ -81,6 +87,9 @@ dependencies {
 
     // Player Animation Lib
     modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:${project.player_animator_version}")
+
+    // Trinkets
+    modImplementation "dev.emi:trinkets:${project.trinkets_version}"
 
     // Spell Engine
     modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}")
