@@ -1,5 +1,7 @@
 package com.github.theredbrain.variousstatuseffects;
 
+import com.github.theredbrain.overhauleddamage.entity.DuckLivingEntityMixin;
+import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import com.github.theredbrain.variousstatuseffects.config.ServerConfig;
 import com.github.theredbrain.variousstatuseffects.effect.AuraStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.BeneficialStatusEffect;
@@ -14,6 +16,8 @@ import com.github.theredbrain.variousstatuseffects.registry.StatusEffectsRegistr
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.Identifier;
@@ -27,6 +31,7 @@ public class VariousStatusEffects implements ModInitializer {
 	public static ServerConfig SERVER_CONFIG;
 
 	public static DefaultParticleType BLOOD_DROP;
+	public static DefaultParticleType HIT_STUN_PARTICLE;
 
 	public static StatusEffect BLEEDING;
 	public static StatusEffect BURNING;
@@ -53,6 +58,23 @@ public class VariousStatusEffects implements ModInitializer {
 	public static StatusEffect WET;
 	public static StatusEffect WILDERNESS;
 	public static StatusEffect HIT_STUN;
+	public static StatusEffect INSTANT_STAMINA_LOSS;
+	public static StatusEffect INSTANT_STAGGER_BUILD_UP;
+
+	public static final boolean isStaminaAttributesLoaded = FabricLoader.getInstance().isModLoaded("staminaattributes");
+	public static final boolean isOverhauledDamageLoaded = FabricLoader.getInstance().isModLoaded("overhauleddamage");
+
+	public static void addStamina(LivingEntity livingEntity, float amount) {
+		if (isStaminaAttributesLoaded) {
+			((StaminaUsingEntity) livingEntity).staminaattributes$addStamina(amount);
+		}
+	}
+
+	public static void addStaggerBuildUp(LivingEntity livingEntity, float amount) {
+		if (isOverhauledDamageLoaded) {
+			((DuckLivingEntityMixin) livingEntity).overhauleddamage$addStaggerBuildUp(amount);
+		}
+	}
 
 	@Override
 	public void onInitialize() {

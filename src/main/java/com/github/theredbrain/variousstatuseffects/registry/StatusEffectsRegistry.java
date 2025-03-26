@@ -13,6 +13,8 @@ import com.github.theredbrain.variousstatuseffects.effect.BleedingStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.BurningStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.CustomPoisonStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.HarmfulStatusEffect;
+import com.github.theredbrain.variousstatuseffects.effect.InstantStaggerBuildUpStatusEffect;
+import com.github.theredbrain.variousstatuseffects.effect.InstantStaminaLossStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.NeutralStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.ShockedInstantStatusEffect;
 import com.github.theredbrain.variousstatuseffects.spell_engine.ExtendedEntityActionsAllowedSemanticType;
@@ -69,7 +71,9 @@ public class StatusEffectsRegistry {
         VariousStatusEffects.WET = new HarmfulStatusEffect();
         VariousStatusEffects.WILDERNESS = new HarmfulStatusEffect();
         VariousStatusEffects.HIT_STUN = new HarmfulStatusEffect();
-        
+        VariousStatusEffects.INSTANT_STAMINA_LOSS = new InstantStaminaLossStatusEffect();
+        VariousStatusEffects.INSTANT_STAGGER_BUILD_UP = new InstantStaggerBuildUpStatusEffect();
+
         // --- Attribute Modifiers ---
         VariousStatusEffects.CHILLED
                 .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, CHILLED_EFFECT_MODIFIER_UUID, -0.15F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
@@ -109,6 +113,7 @@ public class StatusEffectsRegistry {
         VariousStatusEffects.HIT_STUN
                 .addAttributeModifier(EntityAttributes_CombatRoll.DISTANCE, HIT_STUN_EFFECT_MODIFIER_UUID, serverConfig.hitStunSection.additional_roll_distance.get(), EntityAttributeModifier.Operation.ADDITION)
                 .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, HIT_STUN_EFFECT_MODIFIER_UUID, serverConfig.hitStunSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
+                .addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, HIT_STUN_EFFECT_MODIFIER_UUID, serverConfig.hitStunSection.attack_speed_total_multiplier.get(), EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
         ;
 
         // --- Configuration ---
@@ -153,5 +158,7 @@ public class StatusEffectsRegistry {
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("medium_load"), VariousStatusEffects.MEDIUM_LOAD);
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("heavy_load"), VariousStatusEffects.HEAVY_LOAD);
         Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("hit_stun"), VariousStatusEffects.HIT_STUN);
+        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("instant_stagger_build_up"), VariousStatusEffects.INSTANT_STAGGER_BUILD_UP);
+        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("instant_stamina_loss"), VariousStatusEffects.INSTANT_STAMINA_LOSS);
     }
 }
