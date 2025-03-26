@@ -75,6 +75,21 @@ public class ServerConfig extends Config {
 	public static class HitStunSection extends ConfigSection {
 		public ValidatedDouble additional_roll_distance = new ValidatedDouble(0.0);
 		public ValidatedDouble movement_speed_total_multiplier = new ValidatedDouble(-0.7);
+		public ValidatedDouble attack_speed_total_multiplier = new ValidatedDouble(-0.1);
+	}
+
+	public InstantStaminaLossSection instantStaminaLossSection = new InstantStaminaLossSection();
+
+	public static class InstantStaminaLossSection extends ConfigSection {
+		public ValidatedColor effect_color = new ValidatedColor(1, 1, 1);
+		public ValidatedFloat loss_per_level = new ValidatedFloat(1);
+	}
+
+	public InstantStaggerBuildUpSection instantStaggerBuildUpSection = new InstantStaggerBuildUpSection();
+
+	public static class InstantStaggerBuildUpSection extends ConfigSection {
+		public ValidatedColor effect_color = new ValidatedColor(1, 1, 1);
+		public ValidatedFloat build_up_per_level = new ValidatedFloat(1);
 	}
 
 }

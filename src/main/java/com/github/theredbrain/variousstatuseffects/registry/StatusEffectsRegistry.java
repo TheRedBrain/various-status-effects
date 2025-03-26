@@ -12,6 +12,8 @@ import com.github.theredbrain.variousstatuseffects.effect.BleedingStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.BurningStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.CustomPoisonStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.HarmfulStatusEffect;
+import com.github.theredbrain.variousstatuseffects.effect.InstantStaggerBuildUpStatusEffect;
+import com.github.theredbrain.variousstatuseffects.effect.InstantStaminaLossStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.NeutralStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.ShockedInstantStatusEffect;
 import com.github.theredbrain.variousstatuseffects.spell_engine.ExtendedEntityActionsAllowedSemanticType;
@@ -54,6 +56,8 @@ public class StatusEffectsRegistry {
 	private static final StatusEffect WET = new HarmfulStatusEffect();
 	private static final StatusEffect WILDERNESS = new HarmfulStatusEffect();
 	private static final StatusEffect HIT_STUN = new HarmfulStatusEffect();
+    private static final StatusEffect INSTANT_STAMINA_LOSS = new InstantStaminaLossStatusEffect();
+    private static final StatusEffect INSTANT_STAGGER_BUILD_UP = new InstantStaggerBuildUpStatusEffect();
 	// endregion
 
     public static void registerEffects() {
@@ -163,7 +167,9 @@ public class StatusEffectsRegistry {
         VariousStatusEffects.LIGHT_LOAD = register("light_load", LIGHT_LOAD);
         VariousStatusEffects.MEDIUM_LOAD = register("medium_load", MEDIUM_LOAD);
         VariousStatusEffects.HEAVY_LOAD = register("heavy_load", HEAVY_LOAD);
-        Registry.register("hit_stun", HIT_STUN);
+        VariousStatusEffects.HIT_STUN = register("hit_stun", HIT_STUN);
+        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("instant_stagger_build_up"), VariousStatusEffects.INSTANT_STAGGER_BUILD_UP);
+        Registry.register(Registries.STATUS_EFFECT, VariousStatusEffects.identifier("instant_stamina_loss"), VariousStatusEffects.INSTANT_STAMINA_LOSS);
     }
 
     private static RegistryEntry<StatusEffect> register(String identifierString, StatusEffect statusEffect) {
