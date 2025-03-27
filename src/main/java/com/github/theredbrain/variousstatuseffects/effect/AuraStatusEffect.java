@@ -1,9 +1,11 @@
 package com.github.theredbrain.variousstatuseffects.effect;
 
+import com.github.theredbrain.variousstatuseffects.VariousStatusEffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -16,6 +18,7 @@ public class AuraStatusEffect extends StatusEffect {
 
 	private final boolean applyToSelf;
 	private final boolean requiresMana;
+	private final boolean propagatesAmplifier;
 	private final RegistryEntry<StatusEffect> appliedStatusEffect;
 	private final int appliedStatusEffectDuration;
 	private final int appliedStatusEffectAmplifier;
@@ -23,10 +26,11 @@ public class AuraStatusEffect extends StatusEffect {
 	private final boolean appliedStatusEffectShowParticles;
 	private final boolean appliedStatusEffectShowIcon;
 
-	public AuraStatusEffect(boolean applyToSelf, boolean requiresMana, RegistryEntry<StatusEffect> appliedStatusEffect, int appliedStatusEffectDuration, int appliedStatusEffectAmplifier, boolean appliedStatusEffectAmbient, boolean appliedStatusEffectShowParticles, boolean appliedStatusEffectShowIcon) {
+	public AuraStatusEffect(boolean applyToSelf, boolean requiresMana, boolean propagatesAmplifier, RegistryEntry<StatusEffect> appliedStatusEffect, int appliedStatusEffectDuration, int appliedStatusEffectAmplifier, boolean appliedStatusEffectAmbient, boolean appliedStatusEffectShowParticles, boolean appliedStatusEffectShowIcon) {
 		super(StatusEffectCategory.BENEFICIAL, 3381504); // TODO better colour
 		this.applyToSelf = applyToSelf;
 		this.requiresMana = requiresMana;
+		this.propagatesAmplifier = propagatesAmplifier;
 		this.appliedStatusEffect = appliedStatusEffect;
 		this.appliedStatusEffectDuration = appliedStatusEffectDuration;
 		this.appliedStatusEffectAmplifier = appliedStatusEffectAmplifier;
@@ -39,9 +43,10 @@ public class AuraStatusEffect extends StatusEffect {
 	public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
 		World world = entity.getWorld();
 		// TODO fix aura effect mana requirement
-//        if (this.requiresMana && ((ManaUsingEntity)entity).manaattributes$getMana() <= 0) {
-//            entity.removeStatusEffect(this);
-//        }
+        if (this.requiresMana && VariousStatusEffects.getCurrentMana(entity) <= 0) {
+
+            entity.removeStatusEffect(Registries.STATUS_EFFECT.getEntry(this));
+        }
 		if (world.getTime() % 80L == 0L && !world.isClient) {
 			BlockPos entityBlockPos = entity.getBlockPos();
 			Box box = new Box(entityBlockPos).expand(10);
@@ -54,7 +59,7 @@ public class AuraStatusEffect extends StatusEffect {
 				if (livingEntity == entity && !this.applyToSelf) {
 					continue;
 				}
-				livingEntity.addStatusEffect(new StatusEffectInstance(this.appliedStatusEffect, this.appliedStatusEffectDuration, this.appliedStatusEffectAmplifier, this.appliedStatusEffectAmbient, this.appliedStatusEffectShowParticles, this.appliedStatusEffectShowIcon));
+				livingEntity.addStatusEffect(new StatusEffectInstance(this.appliedStatusEffect, this.appliedStatusEffectDuration, this.propagatesAmplifier ? amplifier : this.appliedStatusEffectAmplifier, this.appliedStatusEffectAmbient, this.appliedStatusEffectShowParticles, this.appliedStatusEffectShowIcon));
 			}
 		}
 		return super.applyUpdateEffect(entity, amplifier);

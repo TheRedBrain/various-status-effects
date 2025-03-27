@@ -35,6 +35,37 @@ public class ServerConfig extends Config {
 		public ValidatedColor effect_color = new ValidatedColor(1, 1, 1);
 	}
 
+	public ChilledSection chilledSection = new ChilledSection();
+
+	public static class ChilledSection extends ConfigSection {
+		public ValidatedDouble movement_speed_total_multiplier = new ValidatedDouble(-0.15);
+		public ValidatedDouble attack_speed_total_multiplier = new ValidatedDouble(-0.15);
+	}
+
+	public OverburdenedSection overburdenedSection = new OverburdenedSection();
+
+	public static class OverburdenedSection extends ConfigSection {
+		public ValidatedDouble movement_speed_total_multiplier = new ValidatedDouble(-0.25);
+	}
+
+	public HealthRegenerationSection healthRegenerationSection = new HealthRegenerationSection();
+
+	public static class HealthRegenerationSection extends ConfigSection {
+		public ValidatedDouble additional_health_regeneration = new ValidatedDouble(2.0);
+	}
+
+	public HealthRegenerationAuraSection healthRegenerationAuraSection = new HealthRegenerationAuraSection();
+
+	public static class HealthRegenerationAuraSection extends ConfigSection {
+		public ValidatedDouble max_mana_total_multiplier = new ValidatedDouble(-0.25);
+	}
+
+	public ManaRegenerationSection manaRegenerationSection = new ManaRegenerationSection();
+
+	public static class ManaRegenerationSection extends ConfigSection {
+		public ValidatedDouble additional_mana_regeneration = new ValidatedDouble(2.0);
+	}
+
 	public PoisonSection poisonSection = new PoisonSection();
 
 	public static class PoisonSection extends ConfigSection {
@@ -48,6 +79,12 @@ public class ServerConfig extends Config {
 	public static class ShockedInstantSection extends ConfigSection {
 		public ValidatedFloat damage = new ValidatedFloat(10.0f);
 		public ValidatedColor effect_color = new ValidatedColor(1, 1, 1);
+	}
+
+	public ShockedDamageIncreaseSection shockedDamageIncreaseSection = new ShockedDamageIncreaseSection();
+
+	public static class ShockedDamageIncreaseSection extends ConfigSection {
+		public ValidatedDouble additional_damage_taken = new ValidatedDouble(25.0);
 	}
 
 	public LightLoadSection lightLoadSection = new LightLoadSection();
@@ -90,6 +127,14 @@ public class ServerConfig extends Config {
 	public static class InstantStaggerBuildUpSection extends ConfigSection {
 		public ValidatedColor effect_color = new ValidatedColor(1, 1, 1);
 		public ValidatedFloat build_up_per_level = new ValidatedFloat(1);
+	}
+
+	public CivilisationSection civilisationSection = new CivilisationSection();
+
+	public static class CivilisationSection extends ConfigSection {
+		public ValidatedDouble additional_health_regeneration = new ValidatedDouble(10.0);
+		public ValidatedDouble additional_mana_regeneration = new ValidatedDouble(10.0);
+		public ValidatedDouble additional_stamina_regeneration = new ValidatedDouble(10.0);
 	}
 
 }

@@ -6,6 +6,7 @@ import com.github.theredbrain.manaattributes.ManaAttributes;
 import com.github.theredbrain.overhauleddamage.OverhauledDamage;
 import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.variousstatuseffects.VariousStatusEffects;
+import com.github.theredbrain.variousstatuseffects.config.ServerConfig;
 import com.github.theredbrain.variousstatuseffects.effect.AuraStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.BeneficialStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.BleedingStatusEffect;
@@ -24,9 +25,11 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.spell_engine.SpellEngineMod;
 import net.spell_engine.api.effect.ActionImpairing;
 import net.spell_engine.api.effect.EntityActionsAllowed;
 import net.spell_engine.api.effect.Synchronized;
+import net.spell_engine.api.entity.SpellEngineAttributes;
 
 public class StatusEffectsRegistry {
 
@@ -39,7 +42,7 @@ public class StatusEffectsRegistry {
 	public static final StatusEffect FALL_IMMUNE = new BeneficialStatusEffect();
 	public static final StatusEffect FROZEN = new HarmfulStatusEffect();
 	public static final StatusEffect HEALTH_REGENERATION = new BeneficialStatusEffect();
-	public static final StatusEffect HEALTH_REGENERATION_AURA = new AuraStatusEffect(true, true, VariousStatusEffects.HEALTH_REGENERATION, 100, 0, true, false, true);
+	public static final StatusEffect HEALTH_REGENERATION_AURA = new AuraStatusEffect(true, true, true, VariousStatusEffects.HEALTH_REGENERATION, 100, 0, true, false, true);
 	public static final StatusEffect KEEP_INVENTORY = new BeneficialStatusEffect();
 	public static final StatusEffect LAVA_IMMUNE = new BeneficialStatusEffect();
 	public static final StatusEffect MANA_REGENERATION = new BeneficialStatusEffect();
@@ -61,64 +64,69 @@ public class StatusEffectsRegistry {
 	// endregion
 
     public static void registerEffects() {
+		ServerConfig serverConfig = VariousStatusEffects.SERVER_CONFIG;
         // --- Attribute Modifiers ---
         CHILLED
-                .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.chilled_effect"), -0.15F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                .addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, VariousStatusEffects.identifier("effect.chilled_effect"), -0.15F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.chilled_effect"), serverConfig.chilledSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, VariousStatusEffects.identifier("effect.chilled_effect"), serverConfig.chilledSection.attack_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
         ;
         if (VariousStatusEffects.isHealthRegenerationOverhaulLoaded) {
             HEALTH_REGENERATION
-                    .addAttributeModifier(HealthRegenerationOverhaul.HEALTH_REGENERATION, VariousStatusEffects.identifier("effect.health_regeneration_effect"), 2.0F, EntityAttributeModifier.Operation.ADD_VALUE)
+                    .addAttributeModifier(HealthRegenerationOverhaul.HEALTH_REGENERATION, VariousStatusEffects.identifier("effect.health_regeneration_effect"), serverConfig.healthRegenerationSection.additional_health_regeneration.get(), EntityAttributeModifier.Operation.ADD_VALUE)
             ;
             CIVILISATION
-                    .addAttributeModifier(HealthRegenerationOverhaul.HEALTH_REGENERATION, VariousStatusEffects.identifier("effect.civilisation_effect"), 10.0F, EntityAttributeModifier.Operation.ADD_VALUE)
+                    .addAttributeModifier(HealthRegenerationOverhaul.HEALTH_REGENERATION, VariousStatusEffects.identifier("effect.civilisation_effect"), serverConfig.civilisationSection.additional_health_regeneration.get(), EntityAttributeModifier.Operation.ADD_VALUE)
             ;
         }
         if (VariousStatusEffects.isStaminaAttributesLoaded) {
             CIVILISATION
-                    .addAttributeModifier(StaminaAttributes.STAMINA_REGENERATION, VariousStatusEffects.identifier("effect.civilisation_effect"), 10.0F, EntityAttributeModifier.Operation.ADD_VALUE)
+                    .addAttributeModifier(StaminaAttributes.STAMINA_REGENERATION, VariousStatusEffects.identifier("effect.civilisation_effect"), serverConfig.civilisationSection.additional_stamina_regeneration.get(), EntityAttributeModifier.Operation.ADD_VALUE)
             ;
         }
         if (VariousStatusEffects.isManaAttributesLoaded) {
             CIVILISATION
-                    .addAttributeModifier(ManaAttributes.MANA_REGENERATION, VariousStatusEffects.identifier("effect.civilisation_effect"), 10.0F, EntityAttributeModifier.Operation.ADD_VALUE)
+                    .addAttributeModifier(ManaAttributes.MANA_REGENERATION, VariousStatusEffects.identifier("effect.civilisation_effect"), serverConfig.civilisationSection.additional_mana_regeneration.get(), EntityAttributeModifier.Operation.ADD_VALUE)
             ;
             HEALTH_REGENERATION_AURA
-                    .addAttributeModifier(ManaAttributes.MAX_MANA, VariousStatusEffects.identifier("effect.health_regeneration_aura_effect"), -0.25F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                    .addAttributeModifier(ManaAttributes.MAX_MANA, VariousStatusEffects.identifier("effect.health_regeneration_aura_effect"), serverConfig.healthRegenerationAuraSection.max_mana_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
             ;
             MANA_REGENERATION
-                    .addAttributeModifier(ManaAttributes.MANA_REGENERATION, VariousStatusEffects.identifier("effect.mana_regeneration_effect"), 2.0F, EntityAttributeModifier.Operation.ADD_VALUE)
+                    .addAttributeModifier(ManaAttributes.MANA_REGENERATION, VariousStatusEffects.identifier("effect.mana_regeneration_effect"), serverConfig.manaRegenerationSection.additional_mana_regeneration.get(), EntityAttributeModifier.Operation.ADD_VALUE)
             ;
         }
         OVERBURDENED
-                .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.overburdened_effect"), -0.25, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.overburdened_effect"), serverConfig.overburdenedSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
         ;
-//		if (VariousStatusEffects.isOverhauledDamageLoaded) {
-//        SHOCKED_DAMAGE_INCREASE
-//                .addAttributeModifier(OverhauledDamage.DAMAGE_TAKEN_MULTIPLIER, VariousStatusEffects.identifier("effect.shocked_damage_increase_effect"), 0.25, EntityAttributeModifier.Operation.ADD_VALUE)
-//        ;
-//		}
+		if (VariousStatusEffects.isSpellEngineLoaded) {
+			SHOCKED_DAMAGE_INCREASE
+					.addAttributeModifier(SpellEngineAttributes.DAMAGE_TAKEN.entry, VariousStatusEffects.identifier("effect.shocked_damage_increase_effect"), serverConfig.shockedDamageIncreaseSection.additional_damage_taken.get(), EntityAttributeModifier.Operation.ADD_VALUE)
+			;
+		}
 		if (VariousStatusEffects.isCombatRollExtensionLoaded) {
 			LIGHT_LOAD
-					.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("effect.light_load_effect"), 7.0, EntityAttributeModifier.Operation.ADD_VALUE)
+					.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("effect.light_load_effect"), serverConfig.lightLoadSection.additional_roll_invulnerability_frames.get(), EntityAttributeModifier.Operation.ADD_VALUE)
 			;
 			MEDIUM_LOAD
-					.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("effect.medium_load_effect"), 6.0, EntityAttributeModifier.Operation.ADD_VALUE)
+					.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("effect.medium_load_effect"), serverConfig.mediumLoadSection.additional_roll_invulnerability_frames.get(), EntityAttributeModifier.Operation.ADD_VALUE)
 			;
 			HEAVY_LOAD
-					.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("effect.heavy_load_effect"), 5.0, EntityAttributeModifier.Operation.ADD_VALUE)
+					.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("effect.heavy_load_effect"), serverConfig.heavyLoadSection.additional_roll_invulnerability_frames.get(), EntityAttributeModifier.Operation.ADD_VALUE)
 			;
 		}
 		if (VariousStatusEffects.isCombatRollLoaded) {
 			HEAVY_LOAD
-					.addAttributeModifier(CombatRoll.Attributes.DISTANCE.entry, VariousStatusEffects.identifier("effect.heavy_load_effect"), -1.0, EntityAttributeModifier.Operation.ADD_VALUE)
+					.addAttributeModifier(CombatRoll.Attributes.DISTANCE.entry, VariousStatusEffects.identifier("effect.heavy_load_effect"), serverConfig.heavyLoadSection.additional_roll_distance.get(), EntityAttributeModifier.Operation.ADD_VALUE)
+			;
+			HIT_STUN
+					.addAttributeModifier(CombatRoll.Attributes.DISTANCE.entry, VariousStatusEffects.identifier("effect.hit_stun_effect"), serverConfig.hitStunSection.additional_roll_distance.get(), EntityAttributeModifier.Operation.ADD_VALUE)
 			;
 		}
 		HEAVY_LOAD
-				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.heavy_load_effect"), -0.1, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.heavy_load_effect"), serverConfig.heavyLoadSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
 		;
         HIT_STUN
-				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.hit_stun_effect"), -0.25, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.hit_stun_effect"), serverConfig.hitStunSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+				.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, VariousStatusEffects.identifier("effect.hit_stun_effect"), serverConfig.hitStunSection.attack_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
 		;
 		// endregion other effects
 

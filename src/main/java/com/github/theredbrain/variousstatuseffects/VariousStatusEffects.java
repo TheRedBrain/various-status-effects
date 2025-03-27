@@ -1,5 +1,6 @@
 package com.github.theredbrain.variousstatuseffects;
 
+import com.github.theredbrain.manaattributes.entity.ManaUsingEntity;
 import com.github.theredbrain.overhauleddamage.entity.DuckLivingEntityMixin;
 import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
 import com.github.theredbrain.overhauleddamage.entity.DuckLivingEntityMixin;
@@ -30,7 +31,6 @@ public class VariousStatusEffects implements ModInitializer {
 	public static final boolean isManaAttributesLoaded = FabricLoader.getInstance().isModLoaded("manaattributes");
 	public static final boolean isStaminaAttributesLoaded = FabricLoader.getInstance().isModLoaded("staminaattributes");
 	public static final boolean isHealthRegenerationOverhaulLoaded = FabricLoader.getInstance().isModLoaded("healthregenerationoverhaul");
-	public static final boolean isFoodOverhaulLoaded = FabricLoader.getInstance().isModLoaded("foodoverhaul");
 	public static final boolean isOverhauledDamageLoaded = FabricLoader.getInstance().isModLoaded("overhauleddamage");
 	public static final boolean isCombatRollExtensionLoaded = FabricLoader.getInstance().isModLoaded("combatrollextension");
 	public static final boolean isCombatRollLoaded = FabricLoader.getInstance().isModLoaded("combat_roll");
@@ -65,6 +65,14 @@ public class VariousStatusEffects implements ModInitializer {
 	public static RegistryEntry<StatusEffect> HIT_STUN;
 	public static RegistryEntry<StatusEffect> INSTANT_STAMINA_LOSS;
 	public static RegistryEntry<StatusEffect> INSTANT_STAGGER_BUILD_UP;
+
+	public static float getCurrentMana(LivingEntity livingEntity) {
+		float currentMana = 0.0F;
+		if (isManaAttributesLoaded) {
+			currentMana = ((ManaUsingEntity) livingEntity).manaattributes$getMana();
+		}
+		return currentMana;
+	}
 
 	public static void addStamina(LivingEntity livingEntity, float amount) {
 		if (isStaminaAttributesLoaded) {
