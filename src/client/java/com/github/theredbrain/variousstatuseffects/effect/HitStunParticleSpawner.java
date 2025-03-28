@@ -13,16 +13,12 @@ public class HitStunParticleSpawner implements CustomParticleStatusEffect.Spawne
 				"variousstatuseffects:hit_stun_particle",
 				ParticleBatch.Shape.CIRCLE,
 				ParticleBatch.Origin.LAUNCH_POINT,
-				null,
-				0.0F,
-				0.0F,
+				ParticleBatch.Rotation.LOOK,
 				1,
 				0.002F,
 				0.01F,
 				360,
-				0.5F,
-				0.1F,
-				false
+				0.1F
 		);
 	}
 

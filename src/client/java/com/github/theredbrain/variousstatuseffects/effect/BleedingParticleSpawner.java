@@ -13,16 +13,12 @@ public class BleedingParticleSpawner implements CustomParticleStatusEffect.Spawn
 				"variousstatuseffects:blood_drop",
 				ParticleBatch.Shape.SPHERE,
 				ParticleBatch.Origin.CENTER,
-				null,
-				0.0F,
-				0.0F,
+				ParticleBatch.Rotation.LOOK,
 				1,
 				0.05F,
 				0.08F,
 				360,
-				0.0F,
-				0.0F,
-				false
+				0.0F
 		);
 	}
 

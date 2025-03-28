@@ -1,3 +1,7 @@
+# 0.2.1
+
+- added support for Spell Engine 1.6.0
+
 # 0.2.0
 
 - update to 1.21.1
