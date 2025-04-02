@@ -1,3 +1,7 @@
+# 0.2.2
+
+- fixed crash when Spell Engine is not installed
+
 # 0.2.1
 
 - added support for Spell Engine 1.6.0
