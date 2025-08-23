@@ -46,14 +46,12 @@ public class AuraStatusEffect extends StatusEffect {
 	@Override
 	public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
 		World world = entity.getWorld();
-		// TODO fix aura effect mana requirement
-        if (this.requiresMana && VariousStatusEffects.getCurrentMana(entity) <= 0) {
-
-            entity.removeStatusEffect(Registries.STATUS_EFFECT.getEntry(this));
-        }
 		if (world.getTime() % this.applicationInterval == 0L && !world.isClient) {
+			if (this.requiresMana && VariousStatusEffects.getCurrentMana(entity) <= 0) {
+				return false;
+			}
 			BlockPos entityBlockPos = entity.getBlockPos();
-			Box box = new Box(entityBlockPos).expand(10);
+			Box box = new Box(entityBlockPos).expand(this.rangeRadius);
 			List<LivingEntity> list = world.getNonSpectatingEntities(LivingEntity.class, box);
 			Iterator var11 = list.iterator();
 

@@ -11,7 +11,6 @@ import com.github.theredbrain.variousstatuseffects.effect.HarmfulStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.InstantStaggerBuildUpStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.InstantStaminaLossStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.NeutralStatusEffect;
-import com.github.theredbrain.variousstatuseffects.effect.RemoveEffectsStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.ShockedInstantStatusEffect;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -31,7 +30,7 @@ public class StatusEffectsRegistry {
 	public static final StatusEffect FALL_IMMUNE = new BeneficialStatusEffect();
 	public static final StatusEffect FROZEN = new HarmfulStatusEffect();
 	public static final StatusEffect HEALTH_REGENERATION = new BeneficialStatusEffect();
-	public static final StatusEffect HEALTH_REGENERATION_AURA = new AuraStatusEffect(true, true, true, VariousStatusEffects.HEALTH_REGENERATION, 100, 0, true, false, true);
+	public static final StatusEffect HEALTH_REGENERATION_AURA = new AuraStatusEffect(StatusEffectCategory.BENEFICIAL, 3381504, true, true, true, 10, 80L, VariousStatusEffects.HEALTH_REGENERATION, 100, 0, true, false, true);
 	public static final StatusEffect KEEP_INVENTORY = new BeneficialStatusEffect();
 	public static final StatusEffect LAVA_IMMUNE = new BeneficialStatusEffect();
 	public static final StatusEffect MANA_REGENERATION = new BeneficialStatusEffect();
