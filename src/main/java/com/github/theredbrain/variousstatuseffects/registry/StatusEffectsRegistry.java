@@ -1,10 +1,5 @@
 package com.github.theredbrain.variousstatuseffects.registry;
 
-import com.github.theredbrain.combatrollextension.CombatRollExtension;
-import com.github.theredbrain.healthregenerationoverhaul.HealthRegenerationOverhaul;
-import com.github.theredbrain.manaattributes.ManaAttributes;
-import com.github.theredbrain.overhauleddamage.OverhauledDamage;
-import com.github.theredbrain.staminaattributes.StaminaAttributes;
 import com.github.theredbrain.variousstatuseffects.VariousStatusEffects;
 import com.github.theredbrain.variousstatuseffects.config.ServerConfig;
 import com.github.theredbrain.variousstatuseffects.effect.AuraStatusEffect;
@@ -16,24 +11,18 @@ import com.github.theredbrain.variousstatuseffects.effect.HarmfulStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.InstantStaggerBuildUpStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.InstantStaminaLossStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.NeutralStatusEffect;
+import com.github.theredbrain.variousstatuseffects.effect.RemoveEffectsStatusEffect;
 import com.github.theredbrain.variousstatuseffects.effect.ShockedInstantStatusEffect;
-import com.github.theredbrain.variousstatuseffects.spell_engine.ExtendedEntityActionsAllowedSemanticType;
-import net.combat_roll.api.CombatRoll;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.spell_engine.SpellEngineMod;
-import net.spell_engine.api.effect.ActionImpairing;
-import net.spell_engine.api.effect.EntityActionsAllowed;
-import net.spell_engine.api.effect.Synchronized;
-import net.spell_engine.api.entity.SpellEngineAttributes;
 
 public class StatusEffectsRegistry {
 
-	//region
 	public static final StatusEffect BLEEDING = new BleedingStatusEffect();
 	public static final StatusEffect BURNING = new BurningStatusEffect();
 	public static final StatusEffect CALAMITY = new NeutralStatusEffect();
@@ -59,128 +48,62 @@ public class StatusEffectsRegistry {
 	public static final StatusEffect WET = new HarmfulStatusEffect();
 	public static final StatusEffect WILDERNESS = new HarmfulStatusEffect();
 	public static final StatusEffect HIT_STUN = new HarmfulStatusEffect();
-    public static final StatusEffect INSTANT_STAMINA_LOSS = new InstantStaminaLossStatusEffect();
-    public static final StatusEffect INSTANT_STAGGER_BUILD_UP = new InstantStaggerBuildUpStatusEffect();
-	// endregion
+	public static final StatusEffect INSTANT_STAMINA_LOSS = new InstantStaminaLossStatusEffect();
+	public static final StatusEffect INSTANT_STAGGER_BUILD_UP = new InstantStaggerBuildUpStatusEffect();
 
-    public static void registerEffects() {
+	public static void registerEffects() {
 		ServerConfig serverConfig = VariousStatusEffects.SERVER_CONFIG;
-        // --- Attribute Modifiers ---
-        CHILLED
-                .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.chilled_effect"), serverConfig.chilledSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                .addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, VariousStatusEffects.identifier("effect.chilled_effect"), serverConfig.chilledSection.attack_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-        ;
-        if (VariousStatusEffects.isHealthRegenerationOverhaulLoaded) {
-            HEALTH_REGENERATION
-                    .addAttributeModifier(HealthRegenerationOverhaul.HEALTH_REGENERATION, VariousStatusEffects.identifier("effect.health_regeneration_effect"), serverConfig.healthRegenerationSection.additional_health_regeneration.get(), EntityAttributeModifier.Operation.ADD_VALUE)
-            ;
-            CIVILISATION
-                    .addAttributeModifier(HealthRegenerationOverhaul.HEALTH_REGENERATION, VariousStatusEffects.identifier("effect.civilisation_effect"), serverConfig.civilisationSection.additional_health_regeneration.get(), EntityAttributeModifier.Operation.ADD_VALUE)
-            ;
-        }
-        if (VariousStatusEffects.isStaminaAttributesLoaded) {
-            CIVILISATION
-                    .addAttributeModifier(StaminaAttributes.STAMINA_REGENERATION, VariousStatusEffects.identifier("effect.civilisation_effect"), serverConfig.civilisationSection.additional_stamina_regeneration.get(), EntityAttributeModifier.Operation.ADD_VALUE)
-            ;
-        }
-        if (VariousStatusEffects.isManaAttributesLoaded) {
-            CIVILISATION
-                    .addAttributeModifier(ManaAttributes.MANA_REGENERATION, VariousStatusEffects.identifier("effect.civilisation_effect"), serverConfig.civilisationSection.additional_mana_regeneration.get(), EntityAttributeModifier.Operation.ADD_VALUE)
-            ;
-            HEALTH_REGENERATION_AURA
-                    .addAttributeModifier(ManaAttributes.MAX_MANA, VariousStatusEffects.identifier("effect.health_regeneration_aura_effect"), serverConfig.healthRegenerationAuraSection.max_mana_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            ;
-            MANA_REGENERATION
-                    .addAttributeModifier(ManaAttributes.MANA_REGENERATION, VariousStatusEffects.identifier("effect.mana_regeneration_effect"), serverConfig.manaRegenerationSection.additional_mana_regeneration.get(), EntityAttributeModifier.Operation.ADD_VALUE)
-            ;
-        }
-        OVERBURDENED
-                .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.overburdened_effect"), serverConfig.overburdenedSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-        ;
-		if (VariousStatusEffects.isSpellEngineLoaded) {
-			SHOCKED_DAMAGE_INCREASE
-					.addAttributeModifier(SpellEngineAttributes.DAMAGE_TAKEN.entry, VariousStatusEffects.identifier("effect.shocked_damage_increase_effect"), serverConfig.shockedDamageIncreaseSection.additional_damage_taken.get(), EntityAttributeModifier.Operation.ADD_VALUE)
-			;
-		}
-		if (VariousStatusEffects.isCombatRollExtensionLoaded) {
-			LIGHT_LOAD
-					.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("effect.light_load_effect"), serverConfig.lightLoadSection.additional_roll_invulnerability_frames.get(), EntityAttributeModifier.Operation.ADD_VALUE)
-			;
-			MEDIUM_LOAD
-					.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("effect.medium_load_effect"), serverConfig.mediumLoadSection.additional_roll_invulnerability_frames.get(), EntityAttributeModifier.Operation.ADD_VALUE)
-			;
-			HEAVY_LOAD
-					.addAttributeModifier(CombatRollExtension.ROLL_INVULNERABLE_TICKS, VariousStatusEffects.identifier("effect.heavy_load_effect"), serverConfig.heavyLoadSection.additional_roll_invulnerability_frames.get(), EntityAttributeModifier.Operation.ADD_VALUE)
-			;
-		}
-		if (VariousStatusEffects.isCombatRollLoaded) {
-			HEAVY_LOAD
-					.addAttributeModifier(CombatRoll.Attributes.DISTANCE.entry, VariousStatusEffects.identifier("effect.heavy_load_effect"), serverConfig.heavyLoadSection.additional_roll_distance.get(), EntityAttributeModifier.Operation.ADD_VALUE)
-			;
-			HIT_STUN
-					.addAttributeModifier(CombatRoll.Attributes.DISTANCE.entry, VariousStatusEffects.identifier("effect.hit_stun_effect"), serverConfig.hitStunSection.additional_roll_distance.get(), EntityAttributeModifier.Operation.ADD_VALUE)
-			;
-		}
+		// --- Attribute Modifiers ---
+		CHILLED
+				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.chilled_effect"), serverConfig.chilledSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+				.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, VariousStatusEffects.identifier("effect.chilled_effect"), serverConfig.chilledSection.attack_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+		;
+		OVERBURDENED
+				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.overburdened_effect"), serverConfig.overburdenedSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+		;
 		HEAVY_LOAD
 				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.heavy_load_effect"), serverConfig.heavyLoadSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
 		;
-        HIT_STUN
+		HIT_STUN
 				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.hit_stun_effect"), serverConfig.hitStunSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
 				.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, VariousStatusEffects.identifier("effect.hit_stun_effect"), serverConfig.hitStunSection.attack_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
 		;
-		// endregion other effects
+		VariousStatusEffects.addModdedAttributesToEffects();
 
 		// --- Configuration ---
-		if (VariousStatusEffects.isSpellEngineLoaded) {
-			ActionImpairing.configure(NO_ATTACK_ITEM, new EntityActionsAllowed(true, true, new EntityActionsAllowed.PlayersAllowed(false, true, true), new EntityActionsAllowed.MobsAllowed(true), ExtendedEntityActionsAllowedSemanticType.NO_ATTACK_ITEM));
-			ActionImpairing.configure(NEEDS_TWO_HANDING, new EntityActionsAllowed(true, true, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(true), ExtendedEntityActionsAllowedSemanticType.NEEDS_TWO_HANDING));
-			ActionImpairing.configure(STAGGERED, new EntityActionsAllowed(false, false, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), ExtendedEntityActionsAllowedSemanticType.STAGGERED));
-			ActionImpairing.configure(OVERBURDENED, new EntityActionsAllowed(false, true, new EntityActionsAllowed.PlayersAllowed(true, true, true), new EntityActionsAllowed.MobsAllowed(true), EntityActionsAllowed.SemanticType.NONE));
-			ActionImpairing.configure(FROZEN, new EntityActionsAllowed(false, false, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), ExtendedEntityActionsAllowedSemanticType.FROZEN));
-            ActionImpairing.configure(HIT_STUN, new EntityActionsAllowed(false, true, new EntityActionsAllowed.PlayersAllowed(false, false, false), new EntityActionsAllowed.MobsAllowed(false), EntityActionsAllowed.SemanticType.STUN));
+		VariousStatusEffects.configureEffects();
 
-			Synchronized.configure(BLEEDING, true);
-			Synchronized.configure(BURNING, true);
-			Synchronized.configure(CHILLED, true);
-			Synchronized.configure(FROZEN, true);
-			Synchronized.configure(HEALTH_REGENERATION_AURA, true);
-			Synchronized.configure(STAGGERED, true);
-			Synchronized.configure(WET, true);
-            Synchronized.configure(HIT_STUN, true);
-		}
+		// --- Registration ---
+		VariousStatusEffects.BLEEDING = register("bleeding", BLEEDING);
+		VariousStatusEffects.BURNING = register("burning", BURNING);
+		VariousStatusEffects.CALAMITY = register("calamity", CALAMITY);
+		VariousStatusEffects.CIVILISATION = register("civilisation", CIVILISATION);
+		VariousStatusEffects.CHILLED = register("chilled", CHILLED);
+		VariousStatusEffects.FALL_IMMUNE = register("fall_immune", FALL_IMMUNE);
+		VariousStatusEffects.FROZEN = register("frozen", FROZEN);
+		VariousStatusEffects.HEALTH_REGENERATION = register("health_regeneration", HEALTH_REGENERATION);
+		VariousStatusEffects.HEALTH_REGENERATION_AURA = register("health_regeneration_aura", HEALTH_REGENERATION_AURA);
+		VariousStatusEffects.KEEP_INVENTORY = register("keep_inventory", KEEP_INVENTORY);
+		VariousStatusEffects.LAVA_IMMUNE = register("lava_immune", LAVA_IMMUNE);
+		VariousStatusEffects.MANA_REGENERATION = register("mana_regeneration", MANA_REGENERATION);
+		VariousStatusEffects.NEEDS_TWO_HANDING = register("needs_two_handing", NEEDS_TWO_HANDING);
+		VariousStatusEffects.NO_ATTACK_ITEM = register("no_attack_item", NO_ATTACK_ITEM);
+		VariousStatusEffects.OVERBURDENED = register("overburdened", OVERBURDENED);
+		VariousStatusEffects.POISON = register("poison", POISON);
+		VariousStatusEffects.SHOCKED_INSTANT = register("shocked_instant", SHOCKED_INSTANT);
+		VariousStatusEffects.SHOCKED_DAMAGE_INCREASE = register("shocked_damage_increase", SHOCKED_DAMAGE_INCREASE);
+		VariousStatusEffects.STAGGERED = register("staggered", STAGGERED);
+		VariousStatusEffects.WET = register("wet", WET);
+		VariousStatusEffects.WILDERNESS = register("wilderness", WILDERNESS);
+		VariousStatusEffects.LIGHT_LOAD = register("light_load", LIGHT_LOAD);
+		VariousStatusEffects.MEDIUM_LOAD = register("medium_load", MEDIUM_LOAD);
+		VariousStatusEffects.HEAVY_LOAD = register("heavy_load", HEAVY_LOAD);
+		VariousStatusEffects.HIT_STUN = register("hit_stun", HIT_STUN);
+		VariousStatusEffects.INSTANT_STAGGER_BUILD_UP = register("instant_stagger_build_up", INSTANT_STAGGER_BUILD_UP);
+		VariousStatusEffects.INSTANT_STAMINA_LOSS = register("instant_stamina_loss", INSTANT_STAMINA_LOSS);
+	}
 
-        // --- Registration ---
-        // other effects
-        VariousStatusEffects.BLEEDING = register("bleeding", BLEEDING);
-        VariousStatusEffects.BURNING = register("burning", BURNING);
-        VariousStatusEffects.CALAMITY = register("calamity", CALAMITY);
-        VariousStatusEffects.CIVILISATION = register("civilisation", CIVILISATION);
-        VariousStatusEffects.CHILLED = register("chilled", CHILLED);
-        VariousStatusEffects.FALL_IMMUNE = register("fall_immune", FALL_IMMUNE);
-        VariousStatusEffects.FROZEN = register("frozen", FROZEN);
-        VariousStatusEffects.HEALTH_REGENERATION = register("health_regeneration", HEALTH_REGENERATION);
-        VariousStatusEffects.HEALTH_REGENERATION_AURA = register("health_regeneration_aura", HEALTH_REGENERATION_AURA);
-        VariousStatusEffects.KEEP_INVENTORY = register("keep_inventory", KEEP_INVENTORY);
-        VariousStatusEffects.LAVA_IMMUNE = register("lava_immune", LAVA_IMMUNE);
-        VariousStatusEffects.MANA_REGENERATION = register("mana_regeneration", MANA_REGENERATION);
-        VariousStatusEffects.NEEDS_TWO_HANDING = register("needs_two_handing", NEEDS_TWO_HANDING);
-        VariousStatusEffects.NO_ATTACK_ITEM = register("no_attack_item", NO_ATTACK_ITEM);
-        VariousStatusEffects.OVERBURDENED = register("overburdened", OVERBURDENED);
-        VariousStatusEffects.POISON = register("poison", POISON);
-        VariousStatusEffects.SHOCKED_INSTANT = register("shocked_instant", SHOCKED_INSTANT);
-        VariousStatusEffects.SHOCKED_DAMAGE_INCREASE = register("shocked_damage_increase", SHOCKED_DAMAGE_INCREASE);
-        VariousStatusEffects.STAGGERED = register("staggered", STAGGERED);
-        VariousStatusEffects.WET = register("wet", WET);
-        VariousStatusEffects.WILDERNESS = register("wilderness", WILDERNESS);
-        VariousStatusEffects.LIGHT_LOAD = register("light_load", LIGHT_LOAD);
-        VariousStatusEffects.MEDIUM_LOAD = register("medium_load", MEDIUM_LOAD);
-        VariousStatusEffects.HEAVY_LOAD = register("heavy_load", HEAVY_LOAD);
-        VariousStatusEffects.HIT_STUN = register("hit_stun", HIT_STUN);
-        VariousStatusEffects.INSTANT_STAGGER_BUILD_UP = register("instant_stagger_build_up", INSTANT_STAGGER_BUILD_UP);
-        VariousStatusEffects.INSTANT_STAMINA_LOSS = register("instant_stamina_loss", INSTANT_STAMINA_LOSS);
-    }
-
-    private static RegistryEntry<StatusEffect> register(String identifierString, StatusEffect statusEffect) {
-        return Registry.registerReference(Registries.STATUS_EFFECT, VariousStatusEffects.identifier(identifierString), statusEffect);
-    }
+	private static RegistryEntry<StatusEffect> register(String identifierString, StatusEffect statusEffect) {
+		return Registry.registerReference(Registries.STATUS_EFFECT, VariousStatusEffects.identifier(identifierString), statusEffect);
+	}
 }

@@ -1,10 +1,13 @@
 package com.github.theredbrain.variousstatuseffects;
 
-import com.github.theredbrain.manaattributes.entity.ManaUsingEntity;
-import com.github.theredbrain.overhauleddamage.entity.DuckLivingEntityMixin;
-import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
-import com.github.theredbrain.overhauleddamage.entity.DuckLivingEntityMixin;
-import com.github.theredbrain.staminaattributes.entity.StaminaUsingEntity;
+import com.github.theredbrain.variousstatuseffects.compat.CombatRollCompat;
+import com.github.theredbrain.variousstatuseffects.compat.CombatRollExtensionCompat;
+import com.github.theredbrain.variousstatuseffects.compat.HealthRegenerationOverhaulCompat;
+import com.github.theredbrain.variousstatuseffects.compat.ManaAttributesCompat;
+import com.github.theredbrain.variousstatuseffects.compat.OverhauledDamageCompat;
+import com.github.theredbrain.variousstatuseffects.compat.SpellEngineCompat;
+import com.github.theredbrain.variousstatuseffects.compat.SpellEngineExtensionCompat;
+import com.github.theredbrain.variousstatuseffects.compat.StaminaAttributesCompat;
 import com.github.theredbrain.variousstatuseffects.config.ServerConfig;
 import com.github.theredbrain.variousstatuseffects.registry.ParticleRegistry;
 import com.github.theredbrain.variousstatuseffects.registry.StatusEffectsRegistry;
@@ -12,14 +15,13 @@ import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.particle.SimpleParticleType;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +37,8 @@ public class VariousStatusEffects implements ModInitializer {
 	public static final boolean isCombatRollExtensionLoaded = FabricLoader.getInstance().isModLoaded("combatrollextension");
 	public static final boolean isCombatRollLoaded = FabricLoader.getInstance().isModLoaded("combat_roll");
 	public static final boolean isSpellEngineLoaded = FabricLoader.getInstance().isModLoaded("spell_engine");
+	public static final boolean isSpellEngineExtensionLoaded = FabricLoader.getInstance().isModLoaded("spellengineextension");
+
 	public static SimpleParticleType BLOOD_DROP;
 	public static SimpleParticleType HIT_STUN_PARTICLE;
 
@@ -69,20 +73,53 @@ public class VariousStatusEffects implements ModInitializer {
 	public static float getCurrentMana(LivingEntity livingEntity) {
 		float currentMana = 0.0F;
 		if (isManaAttributesLoaded) {
-			currentMana = ((ManaUsingEntity) livingEntity).manaattributes$getMana();
+			currentMana = ManaAttributesCompat.getCurrentMana(livingEntity);
 		}
 		return currentMana;
 	}
 
 	public static void addStamina(LivingEntity livingEntity, float amount) {
 		if (isStaminaAttributesLoaded) {
-			((StaminaUsingEntity) livingEntity).staminaattributes$addStamina(amount);
+			StaminaAttributesCompat.addStamina(livingEntity, amount);
 		}
 	}
 
 	public static void addStaggerBuildUp(LivingEntity livingEntity, float amount) {
 		if (isOverhauledDamageLoaded) {
-			((DuckLivingEntityMixin) livingEntity).overhauleddamage$addStaggerBuildUp(amount);
+			OverhauledDamageCompat.addStaggerBuildUp(livingEntity, amount);
+		}
+	}
+
+	public static void addModdedAttributesToEffects() {
+		if (isCombatRollLoaded && SERVER_CONFIG.enable_combat_roll_compatibility.get()) {
+			CombatRollCompat.addAttributes();
+		}
+		if (isCombatRollExtensionLoaded && SERVER_CONFIG.enable_combat_roll_extension_compatibility.get()) {
+			CombatRollExtensionCompat.addAttributes();
+		}
+		if (isHealthRegenerationOverhaulLoaded && SERVER_CONFIG.enable_health_regeneration_overhaul_compatibility.get()) {
+			HealthRegenerationOverhaulCompat.addAttributes();
+		}
+		if (isManaAttributesLoaded && SERVER_CONFIG.enable_mana_attributes_compatibility.get()) {
+			ManaAttributesCompat.addAttributes();
+		}
+		if (isOverhauledDamageLoaded && SERVER_CONFIG.enable_overhauled_damage_compatibility.get()) {
+			OverhauledDamageCompat.addAttributes();
+		}
+		if (isStaminaAttributesLoaded && SERVER_CONFIG.enable_stamina_attributes_compatibility.get()) {
+			StaminaAttributesCompat.addAttributes();
+		}
+		if (isSpellEngineLoaded && SERVER_CONFIG.enable_spell_engine_compatibility.get()) {
+			SpellEngineCompat.addAttributes();
+		}
+	}
+
+	public static void configureEffects() {
+		if (isSpellEngineLoaded && SERVER_CONFIG.enable_spell_engine_compatibility.get()) {
+			SpellEngineCompat.configureEffects();
+		}
+		if (isSpellEngineExtensionLoaded && SERVER_CONFIG.enable_spell_engine_extension_compatibility.get()) {
+			SpellEngineExtensionCompat.configureEffects();
 		}
 	}
 

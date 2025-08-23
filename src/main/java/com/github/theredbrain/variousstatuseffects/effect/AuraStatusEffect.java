@@ -19,6 +19,8 @@ public class AuraStatusEffect extends StatusEffect {
 	private final boolean applyToSelf;
 	private final boolean requiresMana;
 	private final boolean propagatesAmplifier;
+	private final int rangeRadius;
+	private final long applicationInterval;
 	private final RegistryEntry<StatusEffect> appliedStatusEffect;
 	private final int appliedStatusEffectDuration;
 	private final int appliedStatusEffectAmplifier;
@@ -26,11 +28,13 @@ public class AuraStatusEffect extends StatusEffect {
 	private final boolean appliedStatusEffectShowParticles;
 	private final boolean appliedStatusEffectShowIcon;
 
-	public AuraStatusEffect(boolean applyToSelf, boolean requiresMana, boolean propagatesAmplifier, RegistryEntry<StatusEffect> appliedStatusEffect, int appliedStatusEffectDuration, int appliedStatusEffectAmplifier, boolean appliedStatusEffectAmbient, boolean appliedStatusEffectShowParticles, boolean appliedStatusEffectShowIcon) {
-		super(StatusEffectCategory.BENEFICIAL, 3381504); // TODO better colour
+	public AuraStatusEffect(StatusEffectCategory category, int color, boolean applyToSelf, boolean requiresMana, boolean propagatesAmplifier, int rangeRadius, long applicationInterval, RegistryEntry<StatusEffect> appliedStatusEffect, int appliedStatusEffectDuration, int appliedStatusEffectAmplifier, boolean appliedStatusEffectAmbient, boolean appliedStatusEffectShowParticles, boolean appliedStatusEffectShowIcon) {
+		super(category, color);
 		this.applyToSelf = applyToSelf;
 		this.requiresMana = requiresMana;
 		this.propagatesAmplifier = propagatesAmplifier;
+		this.rangeRadius = rangeRadius;
+		this.applicationInterval = applicationInterval;
 		this.appliedStatusEffect = appliedStatusEffect;
 		this.appliedStatusEffectDuration = appliedStatusEffectDuration;
 		this.appliedStatusEffectAmplifier = appliedStatusEffectAmplifier;
@@ -47,7 +51,7 @@ public class AuraStatusEffect extends StatusEffect {
 
             entity.removeStatusEffect(Registries.STATUS_EFFECT.getEntry(this));
         }
-		if (world.getTime() % 80L == 0L && !world.isClient) {
+		if (world.getTime() % this.applicationInterval == 0L && !world.isClient) {
 			BlockPos entityBlockPos = entity.getBlockPos();
 			Box box = new Box(entityBlockPos).expand(10);
 			List<LivingEntity> list = world.getNonSpectatingEntities(LivingEntity.class, box);

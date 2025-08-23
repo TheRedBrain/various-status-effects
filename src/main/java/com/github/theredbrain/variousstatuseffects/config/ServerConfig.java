@@ -18,6 +18,15 @@ public class ServerConfig extends Config {
 		super(VariousStatusEffects.identifier("server"));
 	}
 
+	public ValidatedBoolean enable_combat_roll_compatibility = new ValidatedBoolean(true);
+	public ValidatedBoolean enable_combat_roll_extension_compatibility = new ValidatedBoolean(true);
+	public ValidatedBoolean enable_health_regeneration_overhaul_compatibility = new ValidatedBoolean(true);
+	public ValidatedBoolean enable_mana_attributes_compatibility = new ValidatedBoolean(true);
+	public ValidatedBoolean enable_overhauled_damage_compatibility = new ValidatedBoolean(true);
+	public ValidatedBoolean enable_stamina_attributes_compatibility = new ValidatedBoolean(true);
+	public ValidatedBoolean enable_spell_engine_compatibility = new ValidatedBoolean(true);
+	public ValidatedBoolean enable_spell_engine_extension_compatibility = new ValidatedBoolean(true);
+
 	public BleedingSection bleedingSection = new BleedingSection();
 
 	public static class BleedingSection extends ConfigSection {
