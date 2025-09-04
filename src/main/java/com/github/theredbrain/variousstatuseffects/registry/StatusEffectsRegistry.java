@@ -49,6 +49,8 @@ public class StatusEffectsRegistry {
 	public static final StatusEffect HIT_STUN = new HarmfulStatusEffect();
 	public static final StatusEffect INSTANT_STAMINA_LOSS = new InstantStaminaLossStatusEffect();
 	public static final StatusEffect INSTANT_STAGGER_BUILD_UP = new InstantStaggerBuildUpStatusEffect();
+	public static final StatusEffect EXHAUSTED = new HarmfulStatusEffect();
+	public static final StatusEffect PVP = new NeutralStatusEffect();
 
 	public static void registerEffects() {
 		ServerConfig serverConfig = VariousStatusEffects.SERVER_CONFIG;
@@ -66,6 +68,9 @@ public class StatusEffectsRegistry {
 		HIT_STUN
 				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.hit_stun_effect"), serverConfig.hitStunSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
 				.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, VariousStatusEffects.identifier("effect.hit_stun_effect"), serverConfig.hitStunSection.attack_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+		;
+		EXHAUSTED
+				.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, VariousStatusEffects.identifier("effect.exhausted_effect"), serverConfig.exhaustedSection.movement_speed_total_multiplier.get(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
 		;
 		VariousStatusEffects.addModdedAttributesToEffects();
 
@@ -100,6 +105,8 @@ public class StatusEffectsRegistry {
 		VariousStatusEffects.HIT_STUN = register("hit_stun", HIT_STUN);
 		VariousStatusEffects.INSTANT_STAGGER_BUILD_UP = register("instant_stagger_build_up", INSTANT_STAGGER_BUILD_UP);
 		VariousStatusEffects.INSTANT_STAMINA_LOSS = register("instant_stamina_loss", INSTANT_STAMINA_LOSS);
+		VariousStatusEffects.EXHAUSTED = register("exhausted", EXHAUSTED);
+		VariousStatusEffects.PVP = register("pvp", PVP);
 	}
 
 	private static RegistryEntry<StatusEffect> register(String identifierString, StatusEffect statusEffect) {

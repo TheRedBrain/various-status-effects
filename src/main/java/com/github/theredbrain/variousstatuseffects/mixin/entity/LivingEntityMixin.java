@@ -60,6 +60,13 @@ public abstract class LivingEntityMixin extends Entity implements DuckLivingEnti
 		}
 	}
 
+	@Inject(method = "onStatusEffectRemoved", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;updateAttributes()V"))
+	protected void onStatusEffectRemoved(StatusEffectInstance effect, CallbackInfo ci) {
+		if (effect.getEffectType() == VariousStatusEffects.PVP) {
+			this.getWorld().getScoreboard().clearTeam(this.getNameForScoreboard());
+		}
+	}
+
 	@Inject(method = "tick", at = @At("TAIL"))
 	public void variousstatuseffects$tick(CallbackInfo ci) {
 		if (!this.getWorld().isClient) {

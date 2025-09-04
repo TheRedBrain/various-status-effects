@@ -146,4 +146,10 @@ public class ServerConfig extends Config {
 		public ValidatedDouble additional_stamina_regeneration = new ValidatedDouble(10.0);
 	}
 
+	public ExhaustedSection exhaustedSection = new ExhaustedSection();
+
+	public static class ExhaustedSection extends ConfigSection {
+		public ValidatedDouble movement_speed_total_multiplier = new ValidatedDouble(-0.5);
+	}
+
 }

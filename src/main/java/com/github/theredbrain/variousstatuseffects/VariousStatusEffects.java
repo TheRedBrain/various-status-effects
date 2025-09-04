@@ -69,6 +69,8 @@ public class VariousStatusEffects implements ModInitializer {
 	public static RegistryEntry<StatusEffect> HIT_STUN;
 	public static RegistryEntry<StatusEffect> INSTANT_STAMINA_LOSS;
 	public static RegistryEntry<StatusEffect> INSTANT_STAGGER_BUILD_UP;
+	public static RegistryEntry<StatusEffect> EXHAUSTED;
+	public static RegistryEntry<StatusEffect> PVP;
 
 	public static float getCurrentMana(LivingEntity livingEntity) {
 		float currentMana = 0.0F;
